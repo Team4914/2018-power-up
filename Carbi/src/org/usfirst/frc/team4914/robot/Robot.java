@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4914.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4914.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4914.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,8 +24,9 @@ import org.usfirst.frc.team4914.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+
+	public static Intake intake;
+	
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -36,7 +38,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		intake = new Intake();
+		
 		m_oi = new OI();
+		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
