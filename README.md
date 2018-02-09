@@ -4,6 +4,10 @@ Hopefully.
 
 For 90% of what you need to know for programming, go to [screensteps live](http://wpilib.screenstepslive.com/s/currentCS).
 
+**Read the following if you are new:**
+[Control system hardware review](http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/599672-frc-control-system-hardware-overview)
+[Setting up the development environment](http://wpilib.screenstepslive.com/s/currentCS/m/java/c/88899)
+
 ## Branches
 The main branch `master` is for **competition code only**. Any changes should be made in their own branch based off `master` so if something goes horribly wrong, the branch can be reverted and the code in `master` is preserved. If there is finalized code in a development branch, open a pull request so it can be merged into `master`. Only `cyamonide` (Simon) or `suchaHassle` (Jason) will be accepting these.
 
