@@ -2,6 +2,12 @@
 Ready for whatever FIRST can throw at us this year.  
 Hopefully.
 
+## Branches
+The main branch `master` is for **competition code only**. Any changes should be made in their own branch based off `master` so if something goes horribly wrong, the branch can be reverted and the code in `master` is preserved. If there is finalized code in a development branch, open a pull request so it can be merged into `master`. Only `cyamonide` (Simon) or `suchaHassle` (Jason) will be accepting these.
+
+## To-do and issues
+See issues tab for what needs to be done next with the projects. If you plan on taking care of one of the items on the list, please assign yourself to the issue, and reply with your intent to work on it, and also the branch that you will be contributing to. Any questions should also be stated in reply to the issue; they will be answered as soon as possible.
+
 ## If you're new to GitHub and Git:
 For most people, a GUI is easiest to use. Watch this [video](https://www.youtube.com/watch?v=BKr8lbx3uFY) in this [playlist](https://www.youtube.com/watch?v=1h9_cB9mPT8&list=PLqGj3iMvMa4LFz8DZ0t-89twnelpT4Ilw) to learn how to use it.  
 If you don't mind using a command line, watch everything in this great tutorial by The Net Ninja, found [here](https://www.youtube.com/watch?v=3RjQznt-8kE&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR).
