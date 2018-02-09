@@ -25,7 +25,10 @@ import org.usfirst.frc.team4914.robot.subsystems.Intake;
  */
 public class Robot extends TimedRobot {
 
-	public static Intake intake;
+	public static Drivetrain m_drivetrain;
+	public static Intake m_intake;
+	public static Lift m_lift;
+	public static Climber m_climber;
 	
 	public static OI m_oi;
 
@@ -38,7 +41,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		intake = new Intake();
+		// This block of code initializes all subsystems to local member variables named m_subsystem
+		m_drivetrain = new Drivetrain();
+		m_intake = new Intake();
+		m_lift = new Lift();
+		m_climber = new Climber();
 		
 		m_oi = new OI();
 		
