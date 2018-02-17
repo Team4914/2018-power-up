@@ -67,4 +67,12 @@ public class OI {
     public Joystick getDriverJoystick() {
         return driverJoystick;
     }
+    
+    public double getPrimaryLJ() {
+    	return driverJoystick.getRawAxis(1);
+    }
+    
+    public double getPrimaryRJ() {
+    	return driverJoystick.getRawAxis(5);
+    }
 }

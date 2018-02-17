@@ -9,6 +9,8 @@ package org.usfirst.frc.team4914.robot;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -18,13 +20,24 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * floating around.
  */
 public class RobotMap {
-    public static SpeedController intakeSpeedController1;
-
-    @SuppressWarnings("deprecation")
+    public static VictorSP leftDouble;
+    public static VictorSP leftSingle;
+    public static VictorSP rightDouble;
+    public static VictorSP rightSingle;
+    
 	public static void init() {
-        intakeSpeedController1 = new Talon(0);
-        LiveWindow.addActuator("Intake", "Speed Controller 1", (Talon) intakeSpeedController1);
-        intakeSpeedController1.setInverted(false);
+		
+		leftDouble = new VictorSP(8);
+		leftDouble.setInverted(false);
+		
+		leftSingle = new VictorSP(9);
+		leftSingle.setInverted(false);
+		
+		rightDouble = new VictorSP(5);
+		rightDouble.setInverted(true);
+		
+		rightSingle = new VictorSP(3);
+		rightSingle.setInverted(true);
 
     }
 }

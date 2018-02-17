@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4914.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4914.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4914.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4914.robot.subsystems.Intake;
 
@@ -24,11 +25,14 @@ import org.usfirst.frc.team4914.robot.subsystems.Intake;
  * project.
  */
 public class Robot extends TimedRobot {
+	
+	public static double leftSpeed;
+	public static double rightSpeed;
 
 	public static Drivetrain m_drivetrain;
 	public static Intake m_intake;
-	public static Lift m_lift;
-	public static Climber m_climber;
+	// public static Lift m_lift;
+	// public static Climber m_climber;
 	
 	public static OI m_oi;
 
@@ -41,11 +45,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		RobotMap.init();
+		
 		// This block of code initializes all subsystems to local member variables named m_subsystem
 		m_drivetrain = new Drivetrain();
 		m_intake = new Intake();
-		m_lift = new Lift();
-		m_climber = new Climber();
+		// m_lift = new Lift();
+		// m_climber = new Climber();
 		
 		m_oi = new OI();
 		
@@ -122,6 +128,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		leftSpeed += Robot.m_oi.getPrimaryLJ();
+		rightSpeed += Robot.m_oi.getPrimaryRJ();
+		
+		Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
+		
+		leftSpeed = 0;
+		rightSpeed = 0;
 	}
 
 	/**
@@ -129,5 +143,23 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+	
+	/**
+	 * Keeps motor controller input values at safe values
+	 * 
+	 * @param input
+	 * @param threshold
+	 * @return
+	 */
+	public static double safety(double input, double threshold) {
+		threshold = Math.abs(threshold);
+		if (input < -threshold) {
+			input = -threshold;
+		} else if (input > threshold) {
+			input = threshold;
+		}
+		
+		return input;
 	}
 }
