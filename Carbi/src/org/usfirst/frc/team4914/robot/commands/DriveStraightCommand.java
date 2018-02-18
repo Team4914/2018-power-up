@@ -41,6 +41,8 @@ public class DriveStraightCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+    	leftSpeed = baseSpeed;
+    	rightSpeed = baseSpeed;
     	angleOffset = Robot.m_drivetrain.getGyroAngle();
     	
     	//Subtract (angle * KP) speed from the side that it's turning away from
@@ -52,14 +54,6 @@ public class DriveStraightCommand extends Command {
     	}
     	
     	Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
-    	
-    	//Resetting speed back to normal
-    	if(angleOffset < 0){
-    		rightSpeed += angleOffset * KP;
-    	}
-    	else{
-    		leftSpeed += angleOffset * KP;
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
