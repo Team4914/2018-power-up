@@ -7,10 +7,13 @@
 
 package org.usfirst.frc.team4914.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -20,6 +23,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * floating around.
  */
 public class RobotMap {
+	
+	public static Gyro gyro;
     public static VictorSP leftDouble;
     public static VictorSP leftSingle;
     public static VictorSP rightDouble;
@@ -38,6 +43,8 @@ public class RobotMap {
 		
 		rightSingle = new VictorSP(3);
 		rightSingle.setInverted(true);
+		
+		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
     }
 }
