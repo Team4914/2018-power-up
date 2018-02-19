@@ -1,14 +1,16 @@
-﻿package com.team254.frc2017.paths;
+﻿package org.usfirst.frc.team4914.robot.paths;
 
 import java.util.ArrayList;
 
+import com.team254.frc2017.paths.PathBuilder;
 import com.team254.frc2017.paths.PathBuilder.Waypoint;
+import com.team254.frc2017.paths.PathContainer;
 import com.team254.lib.util.control.Path;
 import com.team254.lib.util.math.RigidTransform2d;
 import com.team254.lib.util.math.Rotation2d;
 import com.team254.lib.util.math.Translation2d;
 
-public class UntitledPath implements PathContainer {
+public class RightSwitchPath implements PathContainer {
     
     @Override
     public Path buildPath() {

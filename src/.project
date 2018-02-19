@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Carbi</name>
+	<name>src</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -13,13 +13,5 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>edu.wpi.first.wpilib.plugins.core.nature.FRCProjectNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>254src</name>
-			<type>2</type>
-			<location>C:/Users/cyamo/Documents/GitHub/2018-power-up/src</location>
-		</link>
-	</linkedResources>
 </projectDescription>

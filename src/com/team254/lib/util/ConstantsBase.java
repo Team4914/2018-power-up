@@ -1,9 +1,5 @@
 package com.team254.lib.util;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -59,7 +55,6 @@ public abstract class ConstantsBase {
     public boolean truncateUserConstants() {
         try {
             Files.write(getFile().toPath(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-            loadFromFile();
             return true;
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -158,59 +153,6 @@ public abstract class ConstantsBase {
             }
         }
         return constants;
-    }
-
-    public JSONObject getJSONObjectFromFile() throws IOException, ParseException {
-        File file = getFile();
-        if (file == null || !file.exists()) {
-            return new JSONObject();
-        }
-        FileReader reader;
-        reader = new FileReader(file);
-        JSONParser jsonParser = new JSONParser();
-        return (JSONObject) jsonParser.parse(reader);
-    }
-
-    public void loadFromFile() {
-        try {
-            JSONObject jsonObject = getJSONObjectFromFile();
-            Set<?> keys = jsonObject.keySet();
-            for (Object o : keys) {
-                String key = (String) o;
-                Object value = jsonObject.get(o);
-                if (value instanceof Long && getConstant(key).type.equals(int.class)) {
-                    value = new BigDecimal((Long) value).intValueExact();
-                }
-                setConstantRaw(key, value);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void saveToFile() {
-        File file = getFile();
-        if (file == null) {
-            return;
-        }
-        try {
-            JSONObject json = getJSONObjectFromFile();
-            FileWriter writer = new FileWriter(file);
-            for (String key : modifiedKeys.keySet()) {
-                try {
-                    Object value = getValueForConstant(key);
-                    json.put(key, value);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            writer.write(json.toJSONString());
-            writer.close();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
     }
 
 }

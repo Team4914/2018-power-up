@@ -1,6 +1,5 @@
 package com.team254.frc2017.paths;
 
-import com.team254.frc2017.auto.actions.WaitForPathMarkerAction;
 import com.team254.lib.util.control.Path;
 import com.team254.lib.util.control.PathSegment;
 import com.team254.lib.util.math.RigidTransform2d;
