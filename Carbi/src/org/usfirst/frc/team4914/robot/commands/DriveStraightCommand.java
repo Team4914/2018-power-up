@@ -26,10 +26,16 @@ public class DriveStraightCommand extends Command {
 	public double angleOffset;
 	public static final double KP = 0.005; //Needs to be fine-tuned
 	
-    public DriveStraightCommand(double speed) {
+	/**
+	 * 
+	 * @param speed base speed at which to drive, from -1 to 1
+	 * @param timeout number of seconds to drive for
+	 */
+    public DriveStraightCommand(double speed, double timeout) {
     	leftSpeed = speed;
     	rightSpeed = speed;
     	baseSpeed = speed;
+    	setTimeout(timeout);
     }
 
     // Called just before this Command runs the first time

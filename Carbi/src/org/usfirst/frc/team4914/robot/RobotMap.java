@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class RobotMap {
 	
-	public static Gyro gyro;
+	public static ADXRS450_Gyro gyro;
     public static VictorSP leftDouble;
     public static VictorSP leftSingle;
     public static VictorSP rightDouble;
