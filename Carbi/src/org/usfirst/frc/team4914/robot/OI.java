@@ -53,15 +53,19 @@ public class OI {
 
         driverJoystick = new Joystick(0);
         
-        joystickButton1 = new JoystickButton(driverJoystick, 1);
-        joystickButton1.whileHeld(new AutonomousCommand());
+        // joystickButton1 = new JoystickButton(driverJoystick, 1);
+        // joystickButton1.whenPressed(new AutonomousCommand());
 
+        // SmartDashboardo fields
+        SmartDashboard.putNumber("Drive Straight Speed", 0);
+        SmartDashboard.putNumber("Drive Straight Timeout", 0);
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-        SmartDashboard.putData("Command 1", new Command1());
-        SmartDashboard.putData("Command Group 1", new CommandGroup1());
-
+        SmartDashboard.putData("Baseline Auto", new AutoBaselineCommand());
+        SmartDashboard.putData("Switch Auto", new AutoSwitchCommand());
+        SmartDashboard.putData("Drive Straight", new DriveStraightCommand(
+        		SmartDashboard.getNumber("Drive Straight Speed", 0),
+        		SmartDashboard.getNumber("Drive Straight Timeout", 0)));
     }
 
     public Joystick getDriverJoystick() {

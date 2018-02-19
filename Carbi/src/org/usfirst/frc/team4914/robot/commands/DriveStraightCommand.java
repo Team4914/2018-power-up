@@ -11,8 +11,6 @@
 
 package org.usfirst.frc.team4914.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import org.usfirst.frc.team4914.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4914.robot.Robot;
 
 /**
@@ -36,6 +34,8 @@ public class DriveStraightCommand extends Command {
     	rightSpeed = speed;
     	baseSpeed = speed;
     	setTimeout(timeout);
+    	
+    	requires(Robot.m_drivetrain);
     }
 
     // Called just before this Command runs the first time

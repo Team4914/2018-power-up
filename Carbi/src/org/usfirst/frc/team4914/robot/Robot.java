@@ -7,15 +7,14 @@
 
 package org.usfirst.frc.team4914.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team4914.robot.commands.ExampleCommand;
-import org.usfirst.frc.team4914.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team4914.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team4914.robot.subsystems.Intake;
+import org.usfirst.frc.team4914.robot.commands.*;
+import org.usfirst.frc.team4914.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -55,8 +54,9 @@ public class Robot extends TimedRobot {
 		
 		m_oi = new OI();
 		
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		// construct autonomous chooser
+		m_chooser.addDefault("Baseline Auto", new AutoBaselineCommand());
+		m_chooser.addObject("Switch Auto", new AutoSwitchCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -67,7 +67,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		// safety code in here
+		Robot.m_drivetrain.stop();
 	}
 
 	@Override
@@ -88,6 +89,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
+		// get field orientation, "game specific message"
+		// from the switch closest to the home driverstation, string will look like "LRL"
+		String GSM = DriverStation.getInstance().getGameSpecificMessage();
+		// parse string
+		RobotConstants.ortnSwitch = GSM.charAt(0);
+		RobotConstants.ortnScale = GSM.charAt(1);
+		RobotConstants.ortnOppSwitch = GSM.charAt(2);
+		
+		// get selected command
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
