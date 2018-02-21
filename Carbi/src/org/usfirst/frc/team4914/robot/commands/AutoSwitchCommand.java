@@ -3,6 +3,7 @@ package org.usfirst.frc.team4914.robot.commands;
 import org.usfirst.frc.team4914.robot.Robot;
 import org.usfirst.frc.team4914.robot.RobotConstants;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -36,6 +37,12 @@ public class AutoSwitchCommand extends CommandGroup {
     		// run left switch motion profile
     	} else { // drive to right switch
     		// run right switch motion profile
+    		
+    		addSequential(new AutoRightSwitchCommand());
+    		addSequential(new AutoRightSwitchCommand2());
+    		addSequential(new RaiseLiftCommand());
+    		Timer.delay(1.5);
+    		addSequential(new AutoTimedSpitCubeCommand(2));
     	}
     	
     	// sequential first stage lift

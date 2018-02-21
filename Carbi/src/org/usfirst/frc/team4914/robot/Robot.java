@@ -30,7 +30,8 @@ public class Robot extends TimedRobot {
 
 	public static Drivetrain m_drivetrain;
 	public static Intake m_intake;
-	// public static Lift m_lift;
+	public static Lift m_lift;
+	public static Climber m_climber;
 	// public static Climber m_climber;
 	
 	public static OI m_oi;
@@ -49,8 +50,11 @@ public class Robot extends TimedRobot {
 		// This block of code initializes all subsystems to local member variables named m_subsystem
 		m_drivetrain = new Drivetrain();
 		m_intake = new Intake();
-		// m_lift = new Lift();
-		// m_climber = new Climber();
+		m_lift = new Lift();
+		m_climber = new Climber();
+		
+		// RobotMap.liftCompressor.setClosedLoopControl(true);
+		m_lift.startCompressor();
 		
 		m_oi = new OI();
 		
@@ -92,7 +96,8 @@ public class Robot extends TimedRobot {
 		
 		// get field orientation, "game specific message"
 		// from the switch closest to the home driverstation, string will look like "LRL"
-		String GSM = DriverStation.getInstance().getGameSpecificMessage();
+		// String GSM = DriverStation.getInstance().getGameSpecificMessage();
+		String GSM = "RRR";
 		// parse string
 		RobotConstants.ortnSwitch = GSM.charAt(0);
 		RobotConstants.ortnScale = GSM.charAt(1);
@@ -140,6 +145,9 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
+		/*
+		 * Drivetrain operation
+		 */
 		leftSpeed += Robot.m_oi.getPrimaryLJ();
 		rightSpeed += Robot.m_oi.getPrimaryRJ();
 		
@@ -147,6 +155,16 @@ public class Robot extends TimedRobot {
 		
 		leftSpeed = 0;
 		rightSpeed = 0;
+		
+		
+		/*
+		 * Intake operation
+		 */
+		if (Robot.m_oi.B.get() == false) { // if the outtake command isn't overriding it
+			Robot.m_intake.set(Robot.m_oi.getLT() + 0.1, Robot.m_oi.getRT() + 0.1); // 0.1 added to retain the cube
+			// Robot.m_climber.set(Robot.m_oi.getRT());
+		}
+		
 	}
 
 	/**

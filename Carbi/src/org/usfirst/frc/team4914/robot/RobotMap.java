@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -26,17 +27,28 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class RobotMap {
 	
+	// Drivetrain actuators
 	public static ADXRS450_Gyro gyro;
     public static VictorSP leftDouble;
     public static VictorSP leftSingle;
     public static VictorSP rightDouble;
     public static VictorSP rightSingle;
     
-    //Pneumatics
-    public static Compressor liftCompressor;
+    // Intake actuators
+    public static Talon intakeLeft;
+    public static Talon intakeRight;
+    
+    // Pneumatic actuators
+    // public static Compressor liftCompressor;
     public static DoubleSolenoid liftDoubleSolenoid;
     
+    // Lift actuators
+    public static Servo servo;
+    public static Talon winch;
+    
 	public static void init() {
+		
+		// Drivetrain
 		
 		leftDouble = new VictorSP(8);
 		leftDouble.setInverted(false);
@@ -52,11 +64,25 @@ public class RobotMap {
 		
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 		
-		//Pneumatics
-		liftCompressor = new Compressor(0);
-		liftCompressor.setClosedLoopControl(false);
-		//Start compressor as off
+		// Pneumatics
 		
-		liftDoubleSolenoid = new DoubleSolenoid(0, 1);
+		// liftCompressor = new Compressor(0);
+		
+		//Start compressor as off
+		liftDoubleSolenoid = new DoubleSolenoid(1, 2);
+		
+		// Intake		
+		
+		intakeLeft = new Talon(2);
+		intakeLeft.setInverted(true);
+		
+		intakeRight = new Talon(1);
+		intakeRight.setInverted(false);
+		
+		// Climber
+		
+		servo = new Servo(7);
+		winch = new Talon(6);
+		winch.setInverted(true);
     }
 }

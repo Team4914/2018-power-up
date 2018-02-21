@@ -49,7 +49,7 @@ public class DriveStraightCommand extends Command {
     protected void execute() {
     	leftSpeed = baseSpeed;
     	rightSpeed = baseSpeed;
-    	angleOffset = Robot.m_drivetrain.getGyroAngle();
+    	angleOffset = Robot.m_drivetrain.getGyroAngle(); 
     	
     	//Subtract (angle * KP) speed from the side that it's turning away from
     	if(angleOffset < 0){

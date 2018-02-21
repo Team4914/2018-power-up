@@ -46,13 +46,33 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	
-    public JoystickButton joystickButton1;
+    public JoystickButton B;
+    public JoystickButton X;
+    public JoystickButton Y;
+    public JoystickButton leftTrigger;
+    public JoystickButton rightTrigger;
     public Joystick driverJoystick;
 
     public OI() {
 
         driverJoystick = new Joystick(0);
         
+        B = new JoystickButton(driverJoystick, 2);
+        B.whileHeld(new SpitCubeCommand());
+        
+        X = new JoystickButton(driverJoystick, 3);
+        X.whileHeld(new RunWinchCommand());
+        
+        Y = new JoystickButton(driverJoystick, 4);
+        Y.whileHeld(new LoosenWinchCommand());
+        
+        leftTrigger = new JoystickButton(driverJoystick, 5);
+        leftTrigger.whenPressed(new PullPinCommand());
+        
+        rightTrigger = new JoystickButton(driverJoystick, 6);
+        rightTrigger.whenPressed(new RaiseLiftCommand());
+        rightTrigger.whenReleased(new LowerLiftCommand());
+
         // joystickButton1 = new JoystickButton(driverJoystick, 1);
         // joystickButton1.whenPressed(new AutonomousCommand());
 
@@ -78,5 +98,13 @@ public class OI {
     
     public double getPrimaryRJ() {
     	return driverJoystick.getRawAxis(5);
+    }
+    
+    public double getLT() {
+    	return driverJoystick.getRawAxis(2);	
+    }
+    
+    public double getRT() {
+    	return driverJoystick.getRawAxis(3);   	
     }
 }

@@ -9,4 +9,8 @@ public class RobotConstants {
 	// autonomous period constants
 	public static final double autoBaselineSpeed = 0.25;
 	public static final double autoBaselineTimeout = 4; // timeout in seconds
+	
+	// Intake speed constants
+	public static final double intakeSpeed = 1;
+	
 }
