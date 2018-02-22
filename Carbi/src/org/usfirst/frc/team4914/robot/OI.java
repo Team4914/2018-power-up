@@ -10,6 +10,7 @@ package org.usfirst.frc.team4914.robot;
 import org.usfirst.frc.team4914.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -46,37 +47,85 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	
-    public JoystickButton B;
-    public JoystickButton X;
-    public JoystickButton Y;
-    public JoystickButton leftTrigger;
-    public JoystickButton rightTrigger;
-    public Joystick driverJoystick;
+	/**
+	 * Represents a digital button on an Xbox controller.
+	 */
+	public enum XboxButton {
+	    kBumperLeft(5),
+	    kBumperRight(6),
+	    kStickLeft(9),
+	    kStickRight(10),
+	    kA(1),
+	    kB(2),
+	    kX(3),
+	    kY(4),
+	    kBack(7),
+	    kStart(8);
+	
+	    @SuppressWarnings("MemberName")
+	    private int value;
+	
+	    XboxButton(int value) {
+	      this.value = value;
+	    }
+	}
+	
+	/**
+	 * Represents an axis on an Xbox controller
+	 */
+	public enum XboxAxis {
+		kYLeft(1),
+		kYRight(5),
+		kXLeft(0),
+		kXRight(4),
+		kTLeft(2),
+		kTRight(3);
+		
+		@SuppressWarnings("MemberName")
+		private int value;
+		
+		XboxAxis(int value) {
+			this.value = value;
+		}
+	}
+	
+	/*
+	 * Joystick declarations
+	 */
+    public Joystick mainJoystick;
+    public JoystickButton mainA, mainB, mainX, mainY, 
+    	mainBack, mainStart, mainBumperLeft, mainBumperRight, 
+    	mainStickLeft, mainStickRight;
+    public Joystick coJoystick;
+    public JoystickButton coA, coB, coX, coY, 
+    	coBack, coStart, coBumperLeft, coBumperRight, 
+    	coStickLeft, coStickRight;
+    
 
     public OI() {
+    	
+    	initMainJoystick();
+    	// initCoJoystick();
+    	
+    	/*
+    	 * This is where you assign functions to the main joystick controller
+    	 */
+    	mainB.whileHeld(new SpitCubeCommand());
+        
+    	mainX.whileHeld(new RunWinchCommand());
+        
+        mainY.whileHeld(new LoosenWinchCommand());
+        
+        mainBumperLeft.whenPressed(new PullPinCommand());
+        
+        mainBumperRight.whenPressed(new RaiseLiftCommand());
+        mainBumperRight.whenReleased(new LowerLiftCommand());
+        
+        /*
+         * This is where you assign functions to he co joystick controller
+         */
 
-        driverJoystick = new Joystick(0);
-        
-        B = new JoystickButton(driverJoystick, 2);
-        B.whileHeld(new SpitCubeCommand());
-        
-        X = new JoystickButton(driverJoystick, 3);
-        X.whileHeld(new RunWinchCommand());
-        
-        Y = new JoystickButton(driverJoystick, 4);
-        Y.whileHeld(new LoosenWinchCommand());
-        
-        leftTrigger = new JoystickButton(driverJoystick, 5);
-        leftTrigger.whenPressed(new PullPinCommand());
-        
-        rightTrigger = new JoystickButton(driverJoystick, 6);
-        rightTrigger.whenPressed(new RaiseLiftCommand());
-        rightTrigger.whenReleased(new LowerLiftCommand());
-
-        // joystickButton1 = new JoystickButton(driverJoystick, 1);
-        // joystickButton1.whenPressed(new AutonomousCommand());
-
-        // SmartDashboardo fields
+        // SmartDashboard fields
         SmartDashboard.putNumber("Drive Straight Speed", 0);
         SmartDashboard.putNumber("Drive Straight Timeout", 0);
 
@@ -87,24 +136,66 @@ public class OI {
         		SmartDashboard.getNumber("Drive Straight Speed", 0),
         		SmartDashboard.getNumber("Drive Straight Timeout", 0)));
     }
+    
+    private void initMainJoystick() {
+    	
+    	mainJoystick = new Joystick(0);
+    	
+    	Joystick thisJoystick = mainJoystick;
+        
+    	mainA = new JoystickButton(thisJoystick, XboxButton.kA.value);
+        mainB = new JoystickButton(thisJoystick, XboxButton.kB.value);
+        mainX = new JoystickButton(thisJoystick, XboxButton.kX.value);
+        mainY = new JoystickButton(thisJoystick, XboxButton.kY.value);
+        mainBumperLeft = new JoystickButton(thisJoystick, XboxButton.kBumperLeft.value);
+        mainBumperRight = new JoystickButton(thisJoystick, XboxButton.kBumperRight.value);
+        mainBack = new JoystickButton(thisJoystick, XboxButton.kBack.value);
+        mainStart = new JoystickButton(thisJoystick, XboxButton.kStart.value);
+        mainStickLeft = new JoystickButton(thisJoystick, XboxButton.kStickLeft.value);
+        mainStickRight = new JoystickButton(thisJoystick, XboxButton.kStickRight.value);
+    }
+    
 
-    public Joystick getDriverJoystick() {
-        return driverJoystick;
+    
+    private void initCoJoystick() {
+    	
+    	coJoystick = new Joystick(1);
+    	
+    	Joystick thisJoystick = coJoystick;
+        
+    	coA = new JoystickButton(thisJoystick, XboxButton.kA.value);
+        coB = new JoystickButton(thisJoystick, XboxButton.kB.value);
+        coX = new JoystickButton(thisJoystick, XboxButton.kX.value);
+        coY = new JoystickButton(thisJoystick, XboxButton.kY.value);
+        coBumperLeft = new JoystickButton(thisJoystick, XboxButton.kBumperLeft.value);
+        coBumperRight = new JoystickButton(thisJoystick, XboxButton.kBumperRight.value);
+        coBack = new JoystickButton(thisJoystick, XboxButton.kBack.value);
+        coStart = new JoystickButton(thisJoystick, XboxButton.kStart.value);
+        coStickLeft = new JoystickButton(thisJoystick, XboxButton.kStickLeft.value);
+        coStickRight = new JoystickButton(thisJoystick, XboxButton.kStickRight.value);
+    }
+
+    public Joystick getMainJoystick() {
+        return mainJoystick;
+    }
+
+    public Joystick getCoJoystick() {
+    	return coJoystick;
     }
     
-    public double getPrimaryLJ() {
-    	return driverJoystick.getRawAxis(1);
+    public double getMainYLeft() {
+    	return mainJoystick.getRawAxis(XboxAxis.kYLeft.value);
     }
     
-    public double getPrimaryRJ() {
-    	return driverJoystick.getRawAxis(5);
+    public double getMainYRight() {
+    	return mainJoystick.getRawAxis(XboxAxis.kYRight.value);
     }
     
-    public double getLT() {
-    	return driverJoystick.getRawAxis(2);	
+    public double getMainTLeft() {
+    	return mainJoystick.getRawAxis(XboxAxis.kTLeft.value);
     }
     
-    public double getRT() {
-    	return driverJoystick.getRawAxis(3);   	
+    public double getMainTRight() {
+    	return mainJoystick.getRawAxis(XboxAxis.kTRight.value);
     }
 }

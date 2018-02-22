@@ -25,8 +25,8 @@ import org.usfirst.frc.team4914.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 	
-	public static double leftSpeed;
-	public static double rightSpeed;
+	public static double driveSpeedLeft;
+	public static double driveSpeedRight;
 
 	public static Drivetrain m_drivetrain;
 	public static Intake m_intake;
@@ -148,20 +148,20 @@ public class Robot extends TimedRobot {
 		/*
 		 * Drivetrain operation
 		 */
-		leftSpeed += Robot.m_oi.getPrimaryLJ();
-		rightSpeed += Robot.m_oi.getPrimaryRJ();
+		driveSpeedLeft += Robot.m_oi.getMainYLeft();
+		driveSpeedRight += Robot.m_oi.getMainYRight();
 		
-		Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
+		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 		
-		leftSpeed = 0;
-		rightSpeed = 0;
-		
+		driveSpeedLeft = 0;
+		driveSpeedRight = 0;
 		
 		/*
 		 * Intake operation
 		 */
-		if (Robot.m_oi.B.get() == false) { // if the outtake command isn't overriding it
-			Robot.m_intake.set(Robot.m_oi.getLT() + 0.1, Robot.m_oi.getRT() + 0.1); // 0.1 added to retain the cube
+		if (Robot.m_oi.mainB.get() == false) { // if the outtake command isn't overriding it
+			Robot.m_intake.set(Robot.m_oi.getMainTLeft() + 0.1, 
+					Robot.m_oi.getMainTRight() + 0.1); // 0.1 added to retain the cube
 			// Robot.m_climber.set(Robot.m_oi.getRT());
 		}
 		

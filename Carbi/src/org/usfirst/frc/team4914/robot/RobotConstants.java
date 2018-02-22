@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4914.robot;
 
 public class RobotConstants {
+	
 	// orientations of all three game objectives, with either 'L' or 'R'
 	public static char ortnSwitch = ' ';
 	public static char ortnScale = ' ';

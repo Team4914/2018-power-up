@@ -71,7 +71,7 @@ public class RobotMap {
 		//Start compressor as off
 		liftDoubleSolenoid = new DoubleSolenoid(1, 2);
 		
-		// Intake		
+		// Intake
 		
 		intakeLeft = new Talon(2);
 		intakeLeft.setInverted(true);
