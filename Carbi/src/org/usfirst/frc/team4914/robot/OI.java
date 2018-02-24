@@ -119,7 +119,7 @@ public class OI {
         mainBumperLeft.whenPressed(new PullPinCommand());
         
         mainBumperRight.whenPressed(new ToggleLiftPistonCommand());
-        
+        mainBumperRight.whenReleased(new LowerLiftCommand());
         
         /*
          * This is where you assign functions to the co joystick controller
