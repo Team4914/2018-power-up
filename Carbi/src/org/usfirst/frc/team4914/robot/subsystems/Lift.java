@@ -28,6 +28,10 @@ public class Lift extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
+	public DoubleSolenoid getDoubleSolenoid() {
+		return doubleSolenoid;
+	}
+	
 	/** 
 	 * @param isExtended
 	 */

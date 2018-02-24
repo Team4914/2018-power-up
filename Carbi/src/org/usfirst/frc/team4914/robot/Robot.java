@@ -94,6 +94,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		
+		// set double solenoid in reverse
+		m_lift.setExtension(false);
+		
 		// get field orientation, "game specific message"
 		// from the switch closest to the home driverstation, string will look like "LRL"
 		// String GSM = DriverStation.getInstance().getGameSpecificMessage();
@@ -129,6 +132,10 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		
+		// set double solenoid in reverse
+		m_lift.setExtension(false);
+				
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
