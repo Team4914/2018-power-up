@@ -39,9 +39,11 @@ public class AutoSwitchCommand extends CommandGroup {
     		// run right switch motion profile
     		
     		addSequential(new AutoRightSwitchCommand());
+    		
+    		// addParallel(new RaiseLiftCommand());
+    		
     		addSequential(new AutoRightSwitchCommand2());
-    		addSequential(new RaiseLiftCommand());
-    		Timer.delay(1.5);
+    		
     		addSequential(new AutoTimedSpitCubeCommand(2));
     	}
     	

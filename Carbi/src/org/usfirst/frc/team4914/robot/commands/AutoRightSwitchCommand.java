@@ -16,10 +16,10 @@ public class AutoRightSwitchCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double ratio = 0.6;
+    	double ratio = 0.65;
     	double base = -0.5;
     	
-    	setTimeout(2);
+    	setTimeout(1.75);
     	while(!isTimedOut()) {
     		Robot.m_drivetrain.tankDrive(base, base*ratio);
     	}

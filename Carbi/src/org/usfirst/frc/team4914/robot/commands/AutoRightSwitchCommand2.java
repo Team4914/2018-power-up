@@ -19,7 +19,7 @@ public class AutoRightSwitchCommand2 extends Command {
     	double ratio = 0.6;
     	double base = -0.5;
     	
-    	setTimeout(2.25);
+    	setTimeout(1);
     	while(!isTimedOut()) {
     		// drive second leg
     		Robot.m_drivetrain.tankDrive(base*ratio, base);

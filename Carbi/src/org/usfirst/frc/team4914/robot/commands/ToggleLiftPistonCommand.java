@@ -26,7 +26,7 @@ public class ToggleLiftPistonCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.m_lift.getDoubleSolenoid.get() == Value.kForward) {
+    	if (Robot.m_lift.getDoubleSolenoid() == Value.kForward) {
     		Robot.m_lift.setExtension(false);
     	}
     	else {
