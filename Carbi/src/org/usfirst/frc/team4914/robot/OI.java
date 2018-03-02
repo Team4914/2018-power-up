@@ -105,25 +105,30 @@ public class OI {
     public OI() {
     	
     	initMainJoystick();
-    	// initCoJoystick();
+    	initCoJoystick();
     	
     	/*
     	 * This is where you assign functions to the main joystick controller
     	 */
     	mainB.whileHeld(new SpitCubeCommand());
         
-    	mainX.whileHeld(new RunWinchCommand());
+    	mainY.whileHeld(new RunWinchCommand());
+        mainA.whileHeld(new LoosenWinchCommand());
         
-        mainY.whileHeld(new LoosenWinchCommand());
+        mainStart.whenPressed(new PullPinCommand());
+        mainBack.whenPressed(new PullPinCommand());
         
-        mainBumperLeft.whenPressed(new PullPinCommand());
-        
-        mainBumperRight.whenPressed(new ToggleLiftPistonCommand());
       
-        
         /*
          * This is where you assign functions to the co joystick controller
          */
+        coB.whenPressed(new ToggleLiftPistonCommand());
+        
+        coBumperLeft.whileHeld(new SquareCube('l'));
+        coBumperRight.whileHeld(new SquareCube('r'));
+        
+        coStart.whenPressed(new PullPinCommand());
+        coBack.whenPressed(new PullPinCommand());
 
         // SmartDashboard fields
         SmartDashboard.putNumber("Drive Straight Speed", 0);
@@ -133,9 +138,6 @@ public class OI {
         SmartDashboard.putData("Baseline Left Auto", new AutoBaselineLeftCommand());
         SmartDashboard.putData("Baseline Right Auto", new AutoBaselineRightCommand());
         SmartDashboard.putData("Switch Auto", new AutoSwitchCommand());
-        SmartDashboard.putData("Drive Straight", new DriveStraightCommand(
-        		SmartDashboard.getNumber("Drive Straight Speed", 0),
-        		SmartDashboard.getNumber("Drive Straight Timeout", 0)));
     }
     
     private void initMainJoystick() {
@@ -175,6 +177,10 @@ public class OI {
         coStickLeft = new JoystickButton(thisJoystick, XboxButton.kStickLeft.value);
         coStickRight = new JoystickButton(thisJoystick, XboxButton.kStickRight.value);
     }
+    
+    /*
+     * Joystick object accessor methods
+     */
 
     public Joystick getMainJoystick() {
         return mainJoystick;
@@ -184,10 +190,22 @@ public class OI {
     	return coJoystick;
     }
     
+    /*
+     * Main joystick axis accessor methods
+     */
+    
+    /**
+     * 
+     * @return vertical axis of left joystick
+     */
     public double getMainYLeft() {
     	return mainJoystick.getRawAxis(XboxAxis.kYLeft.value);
     }
     
+    /**
+     * 
+     * @return vertical axis of right joystick
+     */
     public double getMainYRight() {
     	return mainJoystick.getRawAxis(XboxAxis.kYRight.value);
     }
@@ -197,6 +215,34 @@ public class OI {
     }
     
     public double getMainTRight() {
+    	return mainJoystick.getRawAxis(XboxAxis.kTRight.value);
+    }
+    
+    /*
+     * Co joystick axis accessor methods
+     */
+    
+    /**
+     * 
+     * @return vertical axis of left joystick
+     */
+    public double getCoYLeft() {
+    	return coJoystick.getRawAxis(XboxAxis.kYLeft.value);
+    }
+    
+    /**
+     * 
+     * @return vertical axis of right joystick
+     */
+    public double getCoYRight() {
+    	return coJoystick.getRawAxis(XboxAxis.kYRight.value);
+    }
+    
+    public double getCoTLeft() {
+    	return mainJoystick.getRawAxis(XboxAxis.kTLeft.value);
+    }
+    
+    public double getCoTRight() {
     	return mainJoystick.getRawAxis(XboxAxis.kTRight.value);
     }
 }

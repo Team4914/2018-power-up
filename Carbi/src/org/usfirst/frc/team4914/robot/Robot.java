@@ -100,8 +100,8 @@ public class Robot extends TimedRobot {
 		
 		// get field orientation, "game specific message"
 		// from the switch closest to the home driverstation, string will look like "LRL"
-		// String GSM = DriverStation.getInstance().getGameSpecificMessage();
 		String GSM = "RRR";
+		String GSM = DriverStation.getInstance().getGameSpecificMessage();
 		// parse string
 		RobotConstants.ortnSwitch = GSM.charAt(0);
 		RobotConstants.ortnScale = GSM.charAt(1);
@@ -152,27 +152,33 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+
+		operateTankDrive();
+		operateIntake();
 		
-		/*
-		 * Drivetrain operation
-		 */
+	}
+	
+	private void operateIntake() {
+		// if the outtake command isn't overriding it
+		if (Robot.m_oi.coBumperLeft.get() == false && 
+				Robot.m_oi.coBumperRight.get() == false &&
+				Robot.m_oi.mainB.get() == false) {
+			Robot.m_intake.set(Robot.m_oi.getCoTLeft(), 
+					Robot.m_oi.getCoTRight());
+		}
+	}
+	
+	private void operateTankDrive() {
 		driveSpeedLeft += Robot.m_oi.getMainYLeft();
 		driveSpeedRight += Robot.m_oi.getMainYRight();
+		
+		driveSpeedLeft += 0.5*Robot.m_oi.getCoYLeft();
+		driveSpeedRight += 0.5*Robot.m_oi.getCoYRight();
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 		
 		driveSpeedLeft = 0;
 		driveSpeedRight = 0;
-		
-		/*
-		 * Intake operation
-		 */
-		if (Robot.m_oi.mainB.get() == false) { // if the outtake command isn't overriding it
-			Robot.m_intake.set(Robot.m_oi.getMainTLeft() + 0.1, 
-					Robot.m_oi.getMainTRight() + 0.1); // 0.1 added to retain the cube
-			// Robot.m_climber.set(Robot.m_oi.getRT());
-		}
-		
 	}
 
 	/**
