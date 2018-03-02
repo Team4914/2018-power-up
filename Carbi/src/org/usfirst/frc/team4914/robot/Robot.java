@@ -59,8 +59,9 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		
 		// construct autonomous chooser
-		m_chooser.addDefault("Baseline Auto", new AutoBaselineCommand());
-		m_chooser.addObject("Switch Auto", new AutoSwitchCommand());
+		m_chooser.addDefault("Switch Auto", new AutoSwitchCommand());
+		m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCommand());
+		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

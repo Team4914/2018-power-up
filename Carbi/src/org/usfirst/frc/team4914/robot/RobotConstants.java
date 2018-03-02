@@ -11,20 +11,30 @@ public class RobotConstants {
 	public static final double autoBaselineSpeed = 0.25;
 	public static final double autoBaselineTimeout = 4; // timeout in seconds
 	
-	public static final double[][] autoLeftSwitchWaypoints = new double[][]{
-		{0, 162},
-		{30, 162},
-		{30, 129},
-		{60, 129},
-		{58, 129}
+	public static final double[][] autoLeftSWaypoints = new double[][]{
+		{0, 0},
+		{30, 0},
+		{30, -33},
+		{60, -33}
 	};
 	
-	public static final double[][] autoRightSwitchWaypoints = new double[][]{
-		{0, 162},
-		{30, 162},
-		{30, 195},
-		{60, 195},
-		{58, 195}
+	public static final double[][] autoRightSWaypoints = new double[][]{
+		{0, 0},
+		{30, 0},
+		{30, 33},
+		{60, 33}
+	};
+	
+	public static final double[][] autoLeftBaselineWaypoints = new double[][]{
+		{60, -33},
+		{80, -33},
+		{80, -15}
+	};
+	
+	public static final double[][] autoRightBaselineWaypoints = new double[][]{
+		{60, 33},
+		{80, 33},
+		{80, 15}
 	};
 	
 	// Intake speed constants

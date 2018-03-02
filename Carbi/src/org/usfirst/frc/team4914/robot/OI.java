@@ -130,7 +130,8 @@ public class OI {
         SmartDashboard.putNumber("Drive Straight Timeout", 0);
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Baseline Auto", new AutoBaselineCommand());
+        SmartDashboard.putData("Baseline Left Auto", new AutoBaselineLeftCommand());
+        SmartDashboard.putData("Baseline Right Auto", new AutoBaselineRightCommand());
         SmartDashboard.putData("Switch Auto", new AutoSwitchCommand());
         SmartDashboard.putData("Drive Straight", new DriveStraightCommand(
         		SmartDashboard.getNumber("Drive Straight Speed", 0),
