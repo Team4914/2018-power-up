@@ -677,7 +677,7 @@ public class FalconPathPlanner
 	}
 
 	//main program
-	public static FalconPathPlanner main(String[] args)
+	public static void main(String[] args)
 	{
 		long start = System.currentTimeMillis();
 		//System.setProperty("java.awt.headless", "true"); //enable this to true to emulate roboRio environment
@@ -700,8 +700,7 @@ public class FalconPathPlanner
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
 
-		// if(!GraphicsEnvironment.isHeadless())
-		if (false)
+		if(!GraphicsEnvironment.isHeadless())
 		{
 
 			FalconLinePlot fig2 = new FalconLinePlot(path.smoothCenterVelocity,null,Color.blue);
@@ -735,17 +734,34 @@ public class FalconPathPlanner
 			
 
 		}
-		
-		return path;
 
 
 		//example on printing useful path information
 		//System.out.println(path.numFinalPoints);
 		//System.out.println(path.pathAlpha);
 
+	}
+	
+	/**
+	 * Generates a velocity profile at 0.1 timestep, with robot track width of 28 inches
+	 * in inches per second. When converting to speed controller input, divide by 60.0
+	 * @param waypoints array of waypoints, in a coordinate space of inches, where the X axis
+	 *  (first coordinate) is along the long side of the field, and Y perpendicular to X
+	 * @param totalTime time to complete this path
+	 * @return velocity profile with parameters described above, in inches per second
+	 */
+	public static FalconPathPlanner generatePath(double[][] waypoints, double totalTime) {
+		long start = System.currentTimeMillis();
 
+		double timeStep = 0.1; //period of control loop on Rio, seconds
+		double robotTrackWidth = 28; //distance between left and right wheels, feet
 
+		final FalconPathPlanner path = new FalconPathPlanner(waypoints);
+		path.calculate(totalTime, timeStep, robotTrackWidth);
 
+		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
+		
+		return path;
 	}
 
 	public void poofExample()

@@ -13,30 +13,47 @@ public class AutoSmoothPath extends Command {
 	
 	int i = 0;
 	FalconPathPlanner path;
+	
+	double[][] waypoints;
+	double totalTime;
+	
+	double leftSpeed = 0;
+	double rightSpeed = 0;
+	boolean isFinished = false;
 
-    public AutoSmoothPath() {
+    public AutoSmoothPath(double[][] waypoints, double totalTime) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.waypoints = waypoints;
+    	this.totalTime = totalTime;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	i = 0;
-    	path = FalconPathPlanner.main(null);
+    	path = FalconPathPlanner.generatePath(waypoints, totalTime);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	Timer.delay(0.1);
-    	Robot.m_drivetrain.tankDrive(-path.smoothRightVelocity[i][1]/60.0, -path.smoothLeftVelocity[i][1]/60.0);
-    	System.out.println("X:" + path.smoothLeftVelocity[i][1] + "Y:" + path.smoothRightVelocity[i][1]);
+    	
+    	try {
+    		leftSpeed = -path.smoothRightVelocity[i][1]/60.0;
+    		rightSpeed = -path.smoothLeftVelocity[i][1]/60.0;
+    	
+    		Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
+    	} catch (IndexOutOfBoundsException e) {
+    		isFinished = true;
+    	}
+    		
     	i++;
-    	System.out.println("Index:" + i);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return i >= 46;
+        return isFinished;
     }
 
     // Called once after isFinished returns true
