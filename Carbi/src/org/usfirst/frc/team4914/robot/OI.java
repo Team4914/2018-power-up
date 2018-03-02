@@ -116,7 +116,7 @@ public class OI {
         
         mainY.whileHeld(new LoosenWinchCommand());
         
-        mainBumperLeft.whenPressed(new PullPinCommand());
+        mainBumperLeft.whenPressed(new PullPinCommand())
         
         mainBumperRight.whenPressed(new ToggleLiftPistonCommand());
       

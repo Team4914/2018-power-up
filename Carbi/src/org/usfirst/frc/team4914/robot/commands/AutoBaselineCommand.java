@@ -30,7 +30,7 @@ public class AutoBaselineCommand extends CommandGroup {
     	
     	requires(Robot.m_drivetrain);
     	
-    	addSequential(new DriveStraightCommand(
-    			RobotConstants.autoBaselineSpeed, RobotConstants.autoBaselineTimeout));
+    	// addSequential(new DriveStraightCommand(
+    			// RobotConstants.autoBaselineSpeed, RobotConstants.autoBaselineTimeout));
     }
 }
