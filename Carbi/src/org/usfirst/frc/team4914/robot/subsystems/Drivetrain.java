@@ -74,6 +74,38 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
+     * Individual motor setting for debug
+     */
+    public void setRightDouble(double speed) {
+    	speed = Robot.safety(speed, 1);
+    	rightDouble.set(speed);
+    }
+    
+    /**
+     * Individual motor setting for debug
+     */
+    public void setRightSingle(double speed) {
+    	speed = Robot.safety(speed, 1);
+    	rightSingle.set(speed);
+    }
+    
+    /**
+     * Individual motor setting for debug
+     */
+    public void setLeftDouble(double speed) {
+    	speed = Robot.safety(speed, 1);
+    	leftDouble.set(speed);
+    }
+    
+    /**
+     * Individual motor setting for debug
+     */
+    public void setLeftSingle(double speed) {
+    	speed = Robot.safety(speed, 1);
+    	leftSingle.set(speed);
+    }
+    
+    /**
      * Returns heading of gyrometer in degrees. Value may be positive 
      * 	or negative depending on whether it has crossed over the 0 reading.
      * @return heading of gyrometer in degrees

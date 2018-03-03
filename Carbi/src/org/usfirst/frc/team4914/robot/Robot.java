@@ -9,6 +9,7 @@ package org.usfirst.frc.team4914.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 
+	private static int testPWM = 1;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -100,8 +102,13 @@ public class Robot extends TimedRobot {
 		
 		// get field orientation, "game specific message"
 		// from the switch closest to the home driverstation, string will look like "LRL"
-		String GSM = "RRR";
-		String GSM = DriverStation.getInstance().getGameSpecificMessage();
+		String GSM;
+		try {
+			GSM = DriverStation.getInstance().getGameSpecificMessage();
+		} catch (Exception e) {
+			System.out.println("No Game Specific Message!");
+			GSM = "RRR";
+		}
 		// parse string
 		RobotConstants.ortnSwitch = GSM.charAt(0);
 		RobotConstants.ortnScale = GSM.charAt(1);
@@ -186,6 +193,55 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
+		switch(testPWM) {
+		case 1: 
+			System.out.println(testPWM + ":" + "Right intake.");
+			m_intake.setRight(0.5);
+			break;
+		case 2: 
+			System.out.println(testPWM + ":" + "Left intake.");
+			m_intake.setLeft(0.5);
+			break;
+		case 3: 
+			System.out.println(testPWM + ":" + "Right single motor.");
+			m_drivetrain.setRightSingle(0.2);
+			break;
+		case 5: 
+			System.out.println(testPWM + ":" + "Right double motor.");
+			m_drivetrain.setRightDouble(0.2);
+			break;
+		case 8: 
+			System.out.println(testPWM + ":" + "Left double motor.");
+			m_drivetrain.setLeftDouble(0.2);
+			break;
+		case 9: 
+			System.out.println(testPWM + ":" + "Left single motor.");
+			m_drivetrain.setLeftSingle(0.2);
+			break;
+		default:
+			System.out.println(testPWM + ": Not linked to motor.");
+		}
+		
+		Timer.delay(2);
+		
+		while(m_oi.mainBumperRight.get() || Robot.m_oi.coBumperRight.get()) {
+			//Timer.delay(0.5);
+			//Doesn't need a delay, as long as button is held down motor will continue
+		}
+		
+		testPWM++;
+		stopAll();
+		
+		//check if test is done?
+	}
+	
+	/**
+	 * Stops all drivetrain and intake motors
+	 */
+	public static void stopAll() {
+		m_intake.stop();
+		m_drivetrain.stop();
 	}
 	
 	/**

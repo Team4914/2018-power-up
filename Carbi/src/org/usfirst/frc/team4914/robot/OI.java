@@ -124,8 +124,8 @@ public class OI {
          */
         coB.whenPressed(new ToggleLiftPistonCommand());
         
-        coBumperLeft.whileHeld(new SquareCube('l'));
-        coBumperRight.whileHeld(new SquareCube('r'));
+        coBumperLeft.whileHeld(new SquareCube('r'));
+        coBumperRight.whileHeld(new SquareCube('l'));
         
         coStart.whenPressed(new PullPinCommand());
         coBack.whenPressed(new PullPinCommand());
@@ -239,10 +239,10 @@ public class OI {
     }
     
     public double getCoTLeft() {
-    	return mainJoystick.getRawAxis(XboxAxis.kTLeft.value);
+    	return coJoystick.getRawAxis(XboxAxis.kTLeft.value);
     }
     
     public double getCoTRight() {
-    	return mainJoystick.getRawAxis(XboxAxis.kTRight.value);
+    	return coJoystick.getRawAxis(XboxAxis.kTRight.value);
     }
 }
