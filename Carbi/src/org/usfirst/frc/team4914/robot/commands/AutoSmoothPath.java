@@ -31,6 +31,7 @@ public class AutoSmoothPath extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	i = 0;
+    	isFinished = false;
     	path = FalconPathPlanner.generatePath(waypoints, totalTime);
     }
 

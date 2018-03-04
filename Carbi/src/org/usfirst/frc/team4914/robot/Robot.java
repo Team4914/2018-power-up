@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team4914.robot;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -14,6 +18,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team4914.robot.commands.*;
 import org.usfirst.frc.team4914.robot.subsystems.*;
 
@@ -34,6 +43,9 @@ public class Robot extends TimedRobot {
 	public static Lift m_lift;
 	public static Climber m_climber;
 	// public static Climber m_climber;
+	
+    static CameraServer server;
+    static Thread m_visionThread;
 	
 	public static OI m_oi;
 
@@ -56,7 +68,7 @@ public class Robot extends TimedRobot {
 		m_climber = new Climber();
 		
 		// RobotMap.liftCompressor.setClosedLoopControl(true);
-		m_lift.startCompressor();
+		// m_lift.startCompressor();
 		
 		m_oi = new OI();
 		
@@ -65,6 +77,48 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCommand());
 		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		//camera
+		// server = CameraServer.getInstance();
+        // server.startAutomaticCapture(0);
+		
+		m_visionThread = new Thread(() -> {
+			// Get the UsbCamera from CameraServer
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			// Set the resolution
+			camera.setFPS(30);
+			camera.setResolution(160, 120);
+
+			// Get a CvSink. This will capture Mats from the camera
+			CvSink cvSink = CameraServer.getInstance().getVideo();
+			// Setup a CvSource. This will send images back to the Dashboard
+			CvSource outputStream
+					= CameraServer.getInstance().putVideo("Rectangle", 320, 240);
+
+			// Mats are very memory expensive. Lets reuse this Mat.
+			Mat mat = new Mat();
+
+			// This cannot be 'true'. The program will never exit if it is. This
+			// lets the robot stop this thread when restarting robot code or
+			// deploying.
+			while (!Thread.interrupted()) {
+				// Tell the CvSink to grab a frame from the camera and put it
+				// in the source mat.  If there is an error notify the output.
+				if (cvSink.grabFrame(mat) == 0) {
+					// Send the output the error.
+					outputStream.notifyError(cvSink.getError());
+					// skip the rest of the current iteration
+					continue;
+				}
+				// Put a rectangle on the image
+				Imgproc.rectangle(mat, new Point(100, 100), new Point(400, 400),
+						new Scalar(255, 255, 255), 5);
+				// Give the output stream a new image to display
+				outputStream.putFrame(mat);
+			}
+		});
+		m_visionThread.setDaemon(true);
+		m_visionThread.start();
 	}
 
 	/**
@@ -76,6 +130,9 @@ public class Robot extends TimedRobot {
 	public void disabledInit() {
 		// safety code in here
 		Robot.m_drivetrain.stop();
+		Robot.m_lift.stop();
+		Robot.m_intake.stop();
+		Robot.m_climber.set(0);
 	}
 
 	@Override
@@ -97,25 +154,28 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		
+		m_lift.stopCompressor();
+		
 		// set double solenoid in reverse
 		m_lift.setExtension(false);
 		
 		// get field orientation, "game specific message"
 		// from the switch closest to the home driverstation, string will look like "LRL"
-		String GSM;
-		try {
-			GSM = DriverStation.getInstance().getGameSpecificMessage();
-		} catch (Exception e) {
-			System.out.println("No Game Specific Message!");
-			GSM = "RRR";
-		}
+		String GSM = DriverStation.getInstance().getGameSpecificMessage();
+		
 		// parse string
 		RobotConstants.ortnSwitch = GSM.charAt(0);
 		RobotConstants.ortnScale = GSM.charAt(1);
 		RobotConstants.ortnOppSwitch = GSM.charAt(2);
 		
-		// get selected command
-		m_autonomousCommand = m_chooser.getSelected();
+		// get selected command		
+		// m_autonomousCommand = m_chooser.getSelected();
+		
+		// switch command
+		// m_autonomousCommand = new AutoSwitchCommand();
+		
+		// drive straight
+		m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, 4);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -140,6 +200,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		m_lift.startCompressor();
 		
 		// set double solenoid in reverse
 		m_lift.setExtension(false);
@@ -169,7 +230,7 @@ public class Robot extends TimedRobot {
 		// if the outtake command isn't overriding it
 		if (Robot.m_oi.coBumperLeft.get() == false && 
 				Robot.m_oi.coBumperRight.get() == false &&
-				Robot.m_oi.mainB.get() == false) {
+				Robot.m_oi.mainBumperRight.get() == false) {
 			Robot.m_intake.set(Robot.m_oi.getCoTLeft(), 
 					Robot.m_oi.getCoTRight());
 		}
@@ -179,8 +240,8 @@ public class Robot extends TimedRobot {
 		driveSpeedLeft += Robot.m_oi.getMainYLeft();
 		driveSpeedRight += Robot.m_oi.getMainYRight();
 		
-		driveSpeedLeft += 0.5*Robot.m_oi.getCoYLeft();
-		driveSpeedRight += 0.5*Robot.m_oi.getCoYRight();
+		driveSpeedLeft += 0.75*Robot.m_oi.getCoYLeft();
+		driveSpeedRight += 0.75*Robot.m_oi.getCoYRight();
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 		

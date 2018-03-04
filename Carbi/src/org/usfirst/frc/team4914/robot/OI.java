@@ -110,7 +110,7 @@ public class OI {
     	/*
     	 * This is where you assign functions to the main joystick controller
     	 */
-    	mainB.whileHeld(new SpitCubeCommand());
+    	mainBumperRight.whileHeld(new SpitCubeCommand());
         
     	mainY.whileHeld(new RunWinchCommand());
         mainA.whileHeld(new LoosenWinchCommand());

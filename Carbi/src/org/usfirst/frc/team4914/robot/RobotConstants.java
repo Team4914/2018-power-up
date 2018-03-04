@@ -22,7 +22,7 @@ public class RobotConstants {
 		{0, 0},
 		{30, 0},
 		{30, 33},
-		{60, 33}
+		{60, 42}
 	};
 	
 	public static final double[][] autoLeftBaselineWaypoints = new double[][]{
@@ -35,6 +35,11 @@ public class RobotConstants {
 		{60, 33},
 		{80, 33},
 		{80, 15}
+	};
+	
+	public static final double[][] autoStraightWaypoints = new double[][] {
+		{0, 0},
+		{100, 0}
 	};
 	
 	// Intake speed constants

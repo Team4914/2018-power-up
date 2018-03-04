@@ -19,10 +19,10 @@ public class AutoSwitchCommand extends CommandGroup {
     	
     	if (RobotConstants.ortnSwitch == 'L') { // drive to left switch
     		// run left switch motion profile
-    		addSequential(new AutoSmoothPath(RobotConstants.autoLeftSWaypoints, 3));
+    		addSequential(new AutoSmoothPath(RobotConstants.autoLeftSWaypoints, 3.5));
     	} else { // drive to right switch
     		// run right switch motion profile
-    		addSequential(new AutoSmoothPath(RobotConstants.autoRightSWaypoints, 3));
+    		addSequential(new AutoSmoothPath(RobotConstants.autoRightSWaypoints, 3.5));
     	}
 
 		addSequential(new DriveStraightCommand(-0.3, 0.5));

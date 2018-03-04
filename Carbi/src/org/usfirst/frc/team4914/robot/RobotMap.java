@@ -39,7 +39,7 @@ public class RobotMap {
     public static Talon intakeRight;
     
     // Pneumatic actuators
-    // public static Compressor liftCompressor;
+    public static Compressor liftCompressor;
     public static DoubleSolenoid liftDoubleSolenoid;
     
     // Lift actuators
@@ -66,7 +66,7 @@ public class RobotMap {
 		
 		// Pneumatics
 		
-		// liftCompressor = new Compressor(0);
+		liftCompressor = new Compressor(0);
 		
 		//Start compressor as off
 		liftDoubleSolenoid = new DoubleSolenoid(1, 2);

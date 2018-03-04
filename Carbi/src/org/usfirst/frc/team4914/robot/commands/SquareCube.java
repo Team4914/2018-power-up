@@ -17,7 +17,6 @@ public class SquareCube extends Command {
     	this.orientation = orientation;
     	requires(Robot.m_intake);
     }
-
     // Called just before this Command runs the first time
     protected void initialize() {
     }
@@ -26,9 +25,9 @@ public class SquareCube extends Command {
     protected void execute() {
     	if (orientation == 'l') {
     		// rotate cube counterclockwise
-    		Robot.m_intake.set(-1, 1);
+    		Robot.m_intake.set(-0.8, 0.8);
     	} else {
-    		Robot.m_intake.set(1, -1);
+    		Robot.m_intake.set(0.8, -0.8);
     	}
     }
 

@@ -27,7 +27,8 @@ public class Climber extends Subsystem {
      * Pulls pin out of the climber PVC using the servo
      */
     public void pullPin() {
-    	servo.set(180);
+    	double initial = servo.getAngle();
+    	servo.set(initial + 180);
     }
     
     /**

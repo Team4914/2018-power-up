@@ -20,7 +20,7 @@ import org.usfirst.frc.team4914.robot.commands.*;
  */
 public class Lift extends Subsystem {
 	
-	// private final Compressor compressor = RobotMap.liftCompressor;
+	private final Compressor compressor = RobotMap.liftCompressor;
 	private final DoubleSolenoid doubleSolenoid = RobotMap.liftDoubleSolenoid;
 
 	public void initDefaultCommand() {
@@ -45,7 +45,11 @@ public class Lift extends Subsystem {
 	}
 	
 	public void startCompressor(){
-		// compressor.start();
+		compressor.start();
+	}
+	
+	public void stopCompressor() {
+		compressor.stop();
 	}
 	
 	public void stop(){
