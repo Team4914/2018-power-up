@@ -35,9 +35,6 @@ import org.usfirst.frc.team4914.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 	
-	public static double driveSpeedLeft;
-	public static double driveSpeedRight;
-
 	public static Drivetrain m_drivetrain;
 	public static Intake m_intake;
 	public static Lift m_lift;
@@ -221,7 +218,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		operateTankDrive();
+		operateHybridDrive();
 		operateIntake();
 		
 	}
@@ -236,17 +233,35 @@ public class Robot extends TimedRobot {
 		}
 	}
 	
-	private void operateTankDrive() {
+	/**
+	 * Aka "trigger drive," comparable to the drive mode used in 
+	 *  Rocket League.
+	 * Main driver has full tank drive control on the joysticks.
+	 * Main driver right trigger drives forward straight; 
+	 *  left trigger drives backward straight
+	 * Co driver has 0.6x tank drive control on the joysticks
+	 */
+	private void operateHybridDrive() {
+
+		double driveSpeedLeft = 0;
+		double driveSpeedRight = 0;
+		
+		// main driver joystick control
 		driveSpeedLeft += Robot.m_oi.getMainYLeft();
 		driveSpeedRight += Robot.m_oi.getMainYRight();
 		
-		driveSpeedLeft += 0.6*Robot.m_oi.getCoYLeft();
-		driveSpeedRight += 0.6*Robot.m_oi.getCoYRight();
+		// main driver trigger control (drive forward)
+		driveSpeedLeft += Robot.m_oi.getMainTRight();
+		driveSpeedRight += Robot.m_oi.getMainTRight();
+		// main driver trigger control (drive backward)
+		driveSpeedLeft -= Robot.m_oi.getMainTLeft();
+		driveSpeedRight -= Robot.m_oi.getMainTLeft();
+		
+		// co driver joystick control
+		driveSpeedLeft += RobotConstants.coDriveMultiplier*Robot.m_oi.getCoYLeft();
+		driveSpeedRight += RobotConstants.coDriveMultiplier*Robot.m_oi.getCoYRight();
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
-		
-		driveSpeedLeft = 0;
-		driveSpeedRight = 0;
 	}
 
 	/**

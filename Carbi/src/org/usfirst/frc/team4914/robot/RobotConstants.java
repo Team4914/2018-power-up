@@ -11,6 +11,7 @@ public class RobotConstants {
 	public static final double autoBaselineSpeed = 0.25;
 	public static final double autoBaselineTimeout = 4; // timeout in seconds
 	
+	// autonomous period drive waypoints
 	public static final double[][] autoLeftSWaypoints = new double[][]{
 		{0, 0},
 		{30, 0},
@@ -41,6 +42,9 @@ public class RobotConstants {
 		{0, 0},
 		{100, 0}
 	};
+	
+	// co-driver reduction multiplier
+	public static final double coDriveMultiplier = 0.6;
 	
 	// Intake speed constants
 	public static final double intakeSpeed = 1;
