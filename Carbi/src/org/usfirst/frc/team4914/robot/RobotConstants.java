@@ -14,15 +14,15 @@ public class RobotConstants {
 	public static final double[][] autoLeftSWaypoints = new double[][]{
 		{0, 0},
 		{30, 0},
-		{30, -33},
-		{60, -33}
+		{30, -30},
+		{58, -30}
 	};
 	
 	public static final double[][] autoRightSWaypoints = new double[][]{
 		{0, 0},
 		{30, 0},
-		{30, 33},
-		{60, 42}
+		{30, 30},
+		{58, 30}
 	};
 	
 	public static final double[][] autoLeftBaselineWaypoints = new double[][]{

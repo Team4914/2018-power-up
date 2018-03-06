@@ -172,10 +172,10 @@ public class Robot extends TimedRobot {
 		// m_autonomousCommand = m_chooser.getSelected();
 		
 		// switch command
-		// m_autonomousCommand = new AutoSwitchCommand();
+		m_autonomousCommand = new AutoSwitchCommand();
 		
 		// drive straight
-		m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, 4);
+		// m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, 4);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -240,8 +240,8 @@ public class Robot extends TimedRobot {
 		driveSpeedLeft += Robot.m_oi.getMainYLeft();
 		driveSpeedRight += Robot.m_oi.getMainYRight();
 		
-		driveSpeedLeft += 0.75*Robot.m_oi.getCoYLeft();
-		driveSpeedRight += 0.75*Robot.m_oi.getCoYRight();
+		driveSpeedLeft += 0.6*Robot.m_oi.getCoYLeft();
+		driveSpeedRight += 0.6*Robot.m_oi.getCoYRight();
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 		
@@ -254,6 +254,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
+		/*
 		
 		switch(testPWM) {
 		case 1: 
@@ -293,6 +295,10 @@ public class Robot extends TimedRobot {
 		
 		testPWM++;
 		stopAll();
+		
+		*/
+		
+		m_drivetrain.setRightDouble(0.2);
 		
 		//check if test is done?
 	}
