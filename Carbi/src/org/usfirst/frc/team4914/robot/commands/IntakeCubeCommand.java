@@ -17,7 +17,7 @@ public class IntakeCubeCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_intake.set(RobotConstants.intakeSpeed);
+    	Robot.m_intake.set(RobotConstants.k_outtakeSpeed);
     }
 
     // Called repeatedly when this Command is scheduled to run

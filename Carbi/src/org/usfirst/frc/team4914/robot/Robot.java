@@ -172,7 +172,7 @@ public class Robot extends TimedRobot {
 		m_autonomousCommand = new AutoSwitchCommand();
 		
 		// drive straight
-		// m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, 4);
+		// m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -258,8 +258,8 @@ public class Robot extends TimedRobot {
 		driveSpeedRight -= Robot.m_oi.getMainTLeft();
 		
 		// co driver joystick control
-		driveSpeedLeft += RobotConstants.coDriveMultiplier*Robot.m_oi.getCoYLeft();
-		driveSpeedRight += RobotConstants.coDriveMultiplier*Robot.m_oi.getCoYRight();
+		driveSpeedLeft += RobotConstants.k_coDriveMultiplier*Robot.m_oi.getCoYLeft();
+		driveSpeedRight += RobotConstants.k_coDriveMultiplier*Robot.m_oi.getCoYRight();
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 	}

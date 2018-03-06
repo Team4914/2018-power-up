@@ -21,7 +21,7 @@ public class SpitCubeCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.set(-RobotConstants.intakeSpeed);
+    	Robot.m_intake.set(-RobotConstants.k_outtakeSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

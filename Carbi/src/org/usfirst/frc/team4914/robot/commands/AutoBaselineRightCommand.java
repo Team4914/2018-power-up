@@ -20,17 +20,17 @@ public class AutoBaselineRightCommand extends CommandGroup {
     		// right side of switch is home switch
     		
     		// run right S-path profile and spit out cube
-    		addSequential(new AutoSmoothPath(RobotConstants.autoRightSWaypoints, 4));
-    		addSequential(new AutoSmoothPath(RobotConstants.autoRightBaselineWaypoints, 1));
+    		addSequential(new AutoDrivePath(RobotConstants.k_SwitchAutoRightFPPWaypoints, 4));
+    		addSequential(new AutoDrivePath(RobotConstants.autoRightBaselineWaypoints, 1));
     		
     		// drive back a bit and spit out cube
     		addSequential(new DriveStraightCommand(-0.3, 0.5));
-    		addSequential(new AutoTimedSpitCubeCommand(2));
+    		addSequential(new TimedOuttakeCommand(2));
     		
     	} else { // drive to right switch
     		// left (farther) side of switch is home switch
     		// run drive forward baseline
-    		addSequential(new AutoSmoothPath(RobotConstants.autoRightSWaypoints, 4));
+    		addSequential(new AutoDrivePath(RobotConstants.k_SwitchAutoRightFPPWaypoints, 4));
     	}
     }
 }

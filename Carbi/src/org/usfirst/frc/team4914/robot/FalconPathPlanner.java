@@ -753,8 +753,8 @@ public class FalconPathPlanner
 	public static FalconPathPlanner generatePath(double[][] waypoints, double totalTime) {
 		long start = System.currentTimeMillis();
 
-		double timeStep = 0.1; //period of control loop on Rio, seconds
-		double robotTrackWidth = 28; //distance between left and right wheels, feet
+		double timeStep = RobotConstants.k_FPPRobotTrackWidth; //period of control loop on Rio, seconds
+		double robotTrackWidth = RobotConstants.k_FPPTimeStep; //distance between left and right wheels, feet
 
 		final FalconPathPlanner path = new FalconPathPlanner(waypoints);
 		path.calculate(totalTime, timeStep, robotTrackWidth);

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4914.robot.commands;
 
 import org.usfirst.frc.team4914.robot.FalconPathPlanner;
 import org.usfirst.frc.team4914.robot.Robot;
+import org.usfirst.frc.team4914.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoSmoothPath extends Command {
+public class AutoDrivePath extends Command {
 	
 	int i = 0;
 	FalconPathPlanner path;
@@ -21,7 +22,7 @@ public class AutoSmoothPath extends Command {
 	double rightSpeed = 0;
 	boolean isFinished = false;
 
-    public AutoSmoothPath(double[][] waypoints, double totalTime) {
+    public AutoDrivePath(double[][] waypoints, double totalTime) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.waypoints = waypoints;
@@ -38,7 +39,7 @@ public class AutoSmoothPath extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	Timer.delay(0.1);
+    	Timer.delay(RobotConstants.k_FPPTimeStep);
     	
     	try {
     		leftSpeed = -path.smoothRightVelocity[i][1]/60.0;
