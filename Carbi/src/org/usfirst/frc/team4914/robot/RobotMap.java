@@ -35,31 +35,36 @@ public class RobotMap {
     public static VictorSP rightSingle;
     
     // Intake actuators
-    public static Talon intakeLeft;
-    public static Talon intakeRight;
+    public static Spark intakeLeft;
+    public static Spark intakeRight;
     
     // Pneumatic actuators
     public static Compressor liftCompressor;
     public static DoubleSolenoid liftDoubleSolenoid;
     
+    public static DoubleSolenoid intakeDoubleSolenoid;
+    
+    public static DoubleSolenoid climbDoubleSolenoid;
+    
     // Lift actuators
     public static Servo servo;
     public static Talon winch;
+
     
 	public static void init() {
 		
 		// Drivetrain
 		
-		leftDouble = new VictorSP(8);
+		leftDouble = new VictorSP(1);
 		leftDouble.setInverted(false);
 		
-		leftSingle = new VictorSP(9);
+		leftSingle = new VictorSP(8);
 		leftSingle.setInverted(false);
 		
-		rightDouble = new VictorSP(5);
+		rightDouble = new VictorSP(7);
 		rightDouble.setInverted(true);
 		
-		rightSingle = new VictorSP(3);
+		rightSingle = new VictorSP(9);
 		rightSingle.setInverted(true);
 		
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -71,18 +76,24 @@ public class RobotMap {
 		//Start compressor as off
 		liftDoubleSolenoid = new DoubleSolenoid(1, 2);
 		
+		intakeDoubleSolenoid = new DoubleSolenoid(3, 4);
+		
+		climbDoubleSolenoid = new DoubleSolenoid(5, 6);
+		
 		// Intake
 		
-		intakeLeft = new Talon(2);
+		intakeLeft = new Spark(6);
 		intakeLeft.setInverted(true);
 		
-		intakeRight = new Talon(1);
+		intakeRight = new Spark(5);
 		intakeRight.setInverted(false);
 		
 		// Climber
 		
 		servo = new Servo(7);
+		
 		winch = new Talon(6);
 		winch.setInverted(true);
+		
     }
 }

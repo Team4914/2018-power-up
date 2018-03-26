@@ -122,6 +122,8 @@ public class OI {
         /*
          * This is where you assign functions to the co joystick controller
          */
+        
+        coA.whenPressed(new ToggleIntakeCommand());
         coB.whenPressed(new ToggleLiftPistonCommand());
         
         coBumperLeft.whileHeld(new SquareCube('r'));

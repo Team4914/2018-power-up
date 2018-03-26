@@ -15,8 +15,10 @@ import org.usfirst.frc.team4914.robot.Robot;
 import org.usfirst.frc.team4914.robot.RobotMap;
 import org.usfirst.frc.team4914.robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 
 /**
@@ -24,10 +26,15 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class Intake extends Subsystem {
 
-	private final Talon intakeLeft = RobotMap.intakeLeft;
-	private final Talon intakeRight = RobotMap.intakeRight;
+	private final Spark intakeLeft = RobotMap.intakeLeft
+	private final Spark intakeRight = RobotMap.intakeRight;
 	
-
+	private final DoubleSolenoid intakeDoubleSolenoid = RobotMap.intakeDoubleSolenoid;
+	
+	public DoubleSolenoid.Value getDoubleSolenoid() {
+		return intakeDoubleSolenoid.get();
+	}
+	
     @Override
     public void initDefaultCommand() {
 
@@ -74,7 +81,17 @@ public class Intake extends Subsystem {
     	setLeft(leftSpeed);
     	setRight(rightSpeed);
     }
-    
+    /** 
+	 * @param isExtended
+	 */
+	public void setExtension(boolean isExtended){
+		if(isExtended){
+			intakeDoubleSolenoid.set(Value.kForward);
+		}
+		else{
+			intakeDoubleSolenoid.set(Value.kReverse);
+		}
+	}
     /**
      * Stops all intake motors.
      */
