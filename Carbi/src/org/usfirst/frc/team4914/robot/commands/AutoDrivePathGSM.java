@@ -12,9 +12,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoDrivePathGSM extends Command {
 	
+	String autoType = "";
+	
 	int i = 0;
 	FalconPathPlanner path;
-	boolean initialized = false;
 	
 	double[][] waypoints;
 	double totalTime;
@@ -23,9 +24,10 @@ public class AutoDrivePathGSM extends Command {
 	double rightSpeed = 0;
 	boolean isFinished = false;
 
-    public AutoDrivePathGSM() {
+    public AutoDrivePathGSM(String autoType) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.autoType = autoType;
     }
 
     // Called just before this Command runs the first time
@@ -33,13 +35,15 @@ public class AutoDrivePathGSM extends Command {
     	i = 0;
     	isFinished = false;
     	
-		if (RobotConstants.ortnSwitch == 'L') { // drive to left switch
-			waypoints = RobotConstants.k_SwitchAutoLeftFPPWaypoints;
-    	} else { // drive to right switch
-			waypoints = RobotConstants.k_SwitchAutoRightFPPWaypoints;
+    	if (this.autoType.equals("switch")) {
+    		if (RobotConstants.ortnSwitch == 'L') { // drive to left switch
+    			waypoints = RobotConstants.k_SwitchAutoLeftFPPWaypoints;
+        	} else { // drive to right switch
+    			waypoints = RobotConstants.k_SwitchAutoRightFPPWaypoints;
+        	}
+    		// set timeout to switch timeout
+    		totalTime = RobotConstants.k_SwitchAutoFPPTime;
     	}
-		// set timeout to switch timeout
-		totalTime = RobotConstants.k_SwitchAutoFPPTime;
     	
     	// generate path
     	path = FalconPathPlanner.generatePath(waypoints, totalTime);
@@ -47,12 +51,6 @@ public class AutoDrivePathGSM extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
-    	// reinitialize for GSM
-    	if (!initialized) {
-    		initialize();
-    		initialized = true;
-    	}
     	
     	Timer.delay(RobotConstants.k_FPPTimeStep);
     	

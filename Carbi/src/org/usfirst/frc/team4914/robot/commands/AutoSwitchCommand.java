@@ -17,15 +17,20 @@ public class AutoSwitchCommand extends CommandGroup {
     	requires(Robot.m_intake);
     	// requires(Robot.m_lift);
     	
-    	// drive to switch
-    	addSequential(new AutoDrivePathGSM());
+    	
+    	addSequential(new AutoDrivePathGSM("switch"));
+    	
+    	/*
+    	if (RobotConstants.ortnSwitch == 'L') { // drive to left switch
+    		// run left switch motion profile
+    		addSequential(new AutoDrivePath(RobotConstants.k_SwitchAutoLeftFPPWaypoints, RobotConstants.k_SwitchAutoFPPTime));
+    	} else { // drive to right switch
+    		// run right switch motion profile
+    		addSequential(new AutoDrivePath(RobotConstants.k_SwitchAutoRightFPPWaypoints, RobotConstants.k_SwitchAutoFPPTime));
+    	}
+    	*/
 
-    	// drive back slightly
 		addSequential(new DriveStraightCommand(-0.3, 0.5));
-		// release cube
-		addSequential(new TimedOuttakeCommand(0.5));
-		// lift lift
-		addSequential(new ToggleLiftPistonCommand());
-		addSequential(new TimedOuttakeCommand(1.5));
+		addSequential(new TimedOuttakeCommand(2));
     }
 }

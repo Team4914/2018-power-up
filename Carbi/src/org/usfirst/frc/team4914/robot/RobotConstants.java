@@ -17,7 +17,7 @@ public class RobotConstants {
 	
 /* Switch Autonomous */
 	
-	// duration of entire drive path for switch
+	// duration of drive path
 	public static final double k_SwitchAutoFPPTime = 2;
 	
 	// autonomous period drive waypoints
