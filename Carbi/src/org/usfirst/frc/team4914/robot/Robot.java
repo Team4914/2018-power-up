@@ -71,8 +71,9 @@ public class Robot extends TimedRobot {
 		
 		// construct autonomous chooser
 		m_chooser.addDefault("Switch Auto", new AutoSwitchCommand());
-		m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCommand());
-		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCommand());
+		m_chooser.addObject("Baseline Auto", new AutoDrivePath(RobotConstants.k_BaselineAutoFPPWaypoints, RobotConstants.k_BaselineAutoFPPTime));
+		// m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCommand());
+		// m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
 		//camera
@@ -166,13 +167,13 @@ public class Robot extends TimedRobot {
 		RobotConstants.ortnOppSwitch = GSM.charAt(2);
 		
 		// get selected command		
-		// m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = m_chooser.getSelected();
 		
 		// switch command
-		m_autonomousCommand = new AutoSwitchCommand();
+		// m_autonomousCommand = new AutoSwitchCommand();
 		
 		// drive straight
-		// m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
+		// m_autonomousCommand = new AutoDrivePath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
