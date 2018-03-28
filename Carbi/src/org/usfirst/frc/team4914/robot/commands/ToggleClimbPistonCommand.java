@@ -22,12 +22,12 @@ public class ToggleClimbPistonCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.m_intake.getDoubleSolenoid() == Value.kForward) {
-    		Robot.m_intake.setExtension(false);
+    	if (Robot.m_climber.getDoubleSolenoid() == Value.kForward) {
+    		Robot.m_climber.setExtension(false);
     	}
     	else {
     		// must be in reverse
-    		Robot.m_intake.setExtension(true);
+    		Robot.m_climber.setExtension(true);
     	}
     }
 

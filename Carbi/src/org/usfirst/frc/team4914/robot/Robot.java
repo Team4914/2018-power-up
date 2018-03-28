@@ -263,37 +263,35 @@ public class Robot extends TimedRobot {
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 	}
-
+	
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
 		
-		/*
-		
 		switch(testPWM) {
-		case 1: 
+		case 5: 
 			System.out.println(testPWM + ":" + "Right intake.");
 			m_intake.setRight(0.5);
 			break;
-		case 2: 
+		case 6: 
 			System.out.println(testPWM + ":" + "Left intake.");
 			m_intake.setLeft(0.5);
 			break;
-		case 3: 
+		case 9: 
 			System.out.println(testPWM + ":" + "Right single motor.");
 			m_drivetrain.setRightSingle(0.2);
 			break;
-		case 5: 
+		case 7: 
 			System.out.println(testPWM + ":" + "Right double motor.");
 			m_drivetrain.setRightDouble(0.2);
 			break;
-		case 8: 
+		case 1: 
 			System.out.println(testPWM + ":" + "Left double motor.");
 			m_drivetrain.setLeftDouble(0.2);
 			break;
-		case 9: 
+		case 8: 
 			System.out.println(testPWM + ":" + "Left single motor.");
 			m_drivetrain.setLeftSingle(0.2);
 			break;
@@ -308,15 +306,16 @@ public class Robot extends TimedRobot {
 			//Doesn't need a delay, as long as button is held down motor will continue
 		}
 		
-		testPWM++;
+		//Either PWM or PCM ports
+		if(testPWM < 9)	testPWM++;
 		stopAll();
-		
-		*/
 		
 		m_drivetrain.setRightDouble(0.2);
 		
 		//check if test is done?
 	}
+	
+	
 	
 	/**
 	 * Stops all drivetrain and intake motors

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI.Port;
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -47,7 +47,6 @@ public class RobotMap {
     public static DoubleSolenoid climbDoubleSolenoid;
     
     // Lift actuators
-    public static Servo servo;
     public static Talon winch;
 
     
@@ -55,16 +54,17 @@ public class RobotMap {
 		
 		// Drivetrain
 		
-		leftDouble = new VictorSP(1);
+		leftDouble = new VictorSP(7);
 		leftDouble.setInverted(false);
 		
-		leftSingle = new VictorSP(8);
+		leftSingle = new VictorSP(9);
 		leftSingle.setInverted(false);
 		
-		rightDouble = new VictorSP(7);
+		
+		rightDouble = new VictorSP(1);
 		rightDouble.setInverted(true);
 		
-		rightSingle = new VictorSP(9);
+		rightSingle = new VictorSP(8);
 		rightSingle.setInverted(true);
 		
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -74,25 +74,22 @@ public class RobotMap {
 		liftCompressor = new Compressor(0);
 		
 		//Start compressor as off
-		liftDoubleSolenoid = new DoubleSolenoid(1, 2);
+		liftDoubleSolenoid = new DoubleSolenoid(3, 2);
 		
-		intakeDoubleSolenoid = new DoubleSolenoid(3, 4);
+		intakeDoubleSolenoid = new DoubleSolenoid(4, 5);
 		
-		climbDoubleSolenoid = new DoubleSolenoid(5, 6);
+		climbDoubleSolenoid = new DoubleSolenoid(0, 1);
 		
 		// Intake
 		
-		intakeLeft = new Spark(6);
+		intakeLeft = new Spark(5);
 		intakeLeft.setInverted(true);
 		
-		intakeRight = new Spark(5);
+		intakeRight = new Spark(6);
 		intakeRight.setInverted(false);
 		
 		// Climber
-		
-		servo = new Servo(7);
-		
-		winch = new Talon(6);
+		winch = new Talon(4);
 		winch.setInverted(true);
 		
     }

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Spark;
 
 
 /**
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public class Intake extends Subsystem {
 
-	private final Spark intakeLeft = RobotMap.intakeLeft
+	private final Spark intakeLeft = RobotMap.intakeLeft;
 	private final Spark intakeRight = RobotMap.intakeRight;
 	
 	private final DoubleSolenoid intakeDoubleSolenoid = RobotMap.intakeDoubleSolenoid;
@@ -87,9 +88,11 @@ public class Intake extends Subsystem {
 	public void setExtension(boolean isExtended){
 		if(isExtended){
 			intakeDoubleSolenoid.set(Value.kForward);
+			System.out.println("Set to kforward");
 		}
 		else{
 			intakeDoubleSolenoid.set(Value.kReverse);
+			System.out.println("Set to kreverse");
 		}
 	}
     /**

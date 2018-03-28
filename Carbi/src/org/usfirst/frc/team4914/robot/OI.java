@@ -115,8 +115,6 @@ public class OI {
     	mainY.whileHeld(new RunWinchCommand());
         mainA.whileHeld(new LoosenWinchCommand());
         
-        mainStart.whenPressed(new PullPinCommand());
-        mainBack.whenPressed(new PullPinCommand());
         
       
         /*
@@ -129,8 +127,7 @@ public class OI {
         coBumperLeft.whileHeld(new SquareCube('r'));
         coBumperRight.whileHeld(new SquareCube('l'));
         
-        coStart.whenPressed(new PullPinCommand());
-        coBack.whenPressed(new PullPinCommand());
+        coX.whenPressed(new ToggleClimbPistonCommand());
 
         // SmartDashboard fields
         SmartDashboard.putNumber("Drive Straight Speed", 0);
