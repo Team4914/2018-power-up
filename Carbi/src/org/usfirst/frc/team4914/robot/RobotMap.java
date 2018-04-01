@@ -74,11 +74,11 @@ public class RobotMap {
 		liftCompressor = new Compressor(0);
 		
 		//Start compressor as off
-		liftDoubleSolenoid = new DoubleSolenoid(3, 2);
+		liftDoubleSolenoid = new DoubleSolenoid(2, 3);
 		
 		intakeDoubleSolenoid = new DoubleSolenoid(4, 5);
 		
-		climbDoubleSolenoid = new DoubleSolenoid(0, 1);
+		climbDoubleSolenoid = new DoubleSolenoid(6, 7);
 		
 		// Intake
 		

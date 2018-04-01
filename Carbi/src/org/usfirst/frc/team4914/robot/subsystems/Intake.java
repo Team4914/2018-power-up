@@ -27,13 +27,13 @@ import edu.wpi.first.wpilibj.Spark;
  */
 public class Intake extends Subsystem {
 
-	private final Spark intakeLeft = RobotMap.intakeLeft;
-	private final Spark intakeRight = RobotMap.intakeRight;
+	private final Spark leftMotor = RobotMap.intakeLeft;
+	private final Spark rightMotor = RobotMap.intakeRight;
 	
-	private final DoubleSolenoid intakeDoubleSolenoid = RobotMap.intakeDoubleSolenoid;
+	private final DoubleSolenoid doubleSolenoid = RobotMap.intakeDoubleSolenoid;
 	
 	public DoubleSolenoid.Value getDoubleSolenoid() {
-		return intakeDoubleSolenoid.get();
+		return doubleSolenoid.get();
 	}
 	
     @Override
@@ -52,7 +52,7 @@ public class Intake extends Subsystem {
      */
     public void setLeft(double speed) {
     	speed = Robot.safety(speed, 1);
-    	intakeLeft.set(speed);
+    	leftMotor.set(speed);
     }
     
     /**
@@ -61,7 +61,7 @@ public class Intake extends Subsystem {
      */
     public void setRight(double speed) {
     	speed = Robot.safety(speed, 1);
-    	intakeRight.set(speed);
+    	rightMotor.set(speed);
     }
     
     /**
@@ -82,19 +82,32 @@ public class Intake extends Subsystem {
     	setLeft(leftSpeed);
     	setRight(rightSpeed);
     }
+    
     /** 
 	 * @param isExtended
 	 */
 	public void setExtension(boolean isExtended){
 		if(isExtended){
-			intakeDoubleSolenoid.set(Value.kForward);
+			doubleSolenoid.set(Value.kForward);
 			System.out.println("Set to kforward");
 		}
 		else{
-			intakeDoubleSolenoid.set(Value.kReverse);
+			doubleSolenoid.set(Value.kReverse);
 			System.out.println("Set to kreverse");
 		}
 	}
+	
+	/**
+	 * Toggles the piston
+	 */
+	public void toggleExtension() {
+		if (doubleSolenoid.get() == Value.kForward) {
+			doubleSolenoid.set(Value.kReverse);
+		} else {
+			doubleSolenoid.set(Value.kForward);
+		}
+	}
+	
     /**
      * Stops all intake motors.
      */

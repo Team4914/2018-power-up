@@ -2,21 +2,19 @@ package org.usfirst.frc.team4914.robot.commands;
 
 import org.usfirst.frc.team4914.robot.Robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ToggleIntakeCommand extends Command {
+public class ClimbToggleCmd extends Command {
 
-    public ToggleIntakeCommand() {
+    public ClimbToggleCmd() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.m_intake);
+    	requires(Robot.m_climber);
     }
-    
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -24,15 +22,8 @@ public class ToggleIntakeCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.m_intake.getDoubleSolenoid() == Value.kForward) {
-    		Robot.m_intake.setExtension(false);
-    	}
-    	else {
-    		// must be in reverse
-    		Robot.m_intake.setExtension(true);
-    	}
+    	Robot.m_climber.toggleExtension();
     }
-  
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

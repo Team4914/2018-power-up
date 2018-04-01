@@ -15,13 +15,13 @@ public class Climber extends Subsystem {
 	
 	private final Talon winch = RobotMap.winch;
 	
-	private final DoubleSolenoid climbDoubleSolenoid = RobotMap.climbDoubleSolenoid;
+	private final DoubleSolenoid doubleSolenoid = RobotMap.climbDoubleSolenoid;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
 	public DoubleSolenoid.Value getDoubleSolenoid() {
-		return climbDoubleSolenoid.get();
+		return doubleSolenoid.get();
 	}
 
     public void initDefaultCommand() {
@@ -36,17 +36,27 @@ public class Climber extends Subsystem {
     public void set(double speed) {
     	speed = Robot.safety(speed, 1);
     	winch.set(speed);
-    	
     }
     /** 
 	 * @param isExtended
 	 */
 	public void setExtension(boolean isExtended){
 		if(isExtended){
-			climbDoubleSolenoid.set(Value.kForward);
+			doubleSolenoid.set(Value.kForward);
 		}
 		else{
-			climbDoubleSolenoid.set(Value.kReverse);
+			doubleSolenoid.set(Value.kReverse);
+		}
+	}
+	
+	/**
+	 * Toggles the piston
+	 */
+	public void toggleExtension() {
+		if (doubleSolenoid.get() == Value.kForward) {
+			doubleSolenoid.set(Value.kReverse);
+		} else {
+			doubleSolenoid.set(Value.kForward);
 		}
 	}
 }

@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TimedOuttakeCommand extends Command {
+public class OuttakeTimedCmd extends Command {
 
-    public TimedOuttakeCommand(double timeout) {
+    public OuttakeTimedCmd(double timeout) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	setTimeout(timeout);
@@ -22,7 +22,7 @@ public class TimedOuttakeCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.set(-RobotConstants.k_outtakeSpeed);
+    	Robot.m_intake.set(RobotConstants.k_outtakeSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

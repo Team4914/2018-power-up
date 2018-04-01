@@ -16,7 +16,7 @@ import org.usfirst.frc.team4914.robot.Robot;
 /**
  *
  */
-public class DriveStraightCommand extends Command {
+public class DriveStraightCmd extends Command {
 
 	public double baseSpeed;
 	public double leftSpeed;
@@ -29,7 +29,7 @@ public class DriveStraightCommand extends Command {
 	 * @param speed base speed at which to drive, from -1 to 1
 	 * @param timeout number of seconds to drive for
 	 */
-    public DriveStraightCommand(double speed, double timeout) {
+    public DriveStraightCmd(double speed, double timeout) {
     	leftSpeed = speed;
     	rightSpeed = speed;
     	baseSpeed = speed;

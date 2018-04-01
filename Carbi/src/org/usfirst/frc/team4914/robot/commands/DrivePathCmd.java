@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * @deprecated
+ * Drives the robot given a set of waypoints and a timeframe
+ * Generates velocity profile using FalconPathPlanner
  */
-public class AutoDrivePath extends Command {
+public class DrivePathCmd extends Command {
 	
 	int i = 0;
 	FalconPathPlanner path;
@@ -22,7 +24,7 @@ public class AutoDrivePath extends Command {
 	double rightSpeed = 0;
 	boolean isFinished = false;
 
-    public AutoDrivePath(double[][] waypoints, double totalTime) {
+    public DrivePathCmd(double[][] waypoints, double totalTime) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.waypoints = waypoints;
@@ -49,7 +51,7 @@ public class AutoDrivePath extends Command {
     	} catch (IndexOutOfBoundsException e) {
     		isFinished = true;
     	}
-    		
+
     	i++;
     }
 

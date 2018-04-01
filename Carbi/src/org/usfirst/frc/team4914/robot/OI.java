@@ -110,33 +110,30 @@ public class OI {
     	/*
     	 * This is where you assign functions to the main joystick controller
     	 */
-    	mainBumperRight.whileHeld(new SpitCubeCommand());
+    	mainBumperRight.whileHeld(new OuttakeCmd());
         
-    	mainY.whileHeld(new RunWinchCommand());
-        mainA.whileHeld(new LoosenWinchCommand());
-        
-        
+    	mainY.whileHeld(new WinchTightenCmd());
+        mainA.whileHeld(new WinchLoosenCmd());
       
         /*
          * This is where you assign functions to the co joystick controller
          */
         
-        coA.whenPressed(new ToggleIntakeCommand());
-        coB.whenPressed(new ToggleLiftPistonCommand());
+        coB.whenPressed(new LiftToggleCmd());
+
+        coBumperLeft.whileHeld(new OuttakeCmd());
+        coBumperRight.whenPressed(new IntakeToggleCmd());
         
-        coBumperLeft.whileHeld(new SquareCube('r'));
-        coBumperRight.whileHeld(new SquareCube('l'));
-        
-        coX.whenPressed(new ToggleClimbPistonCommand());
+        coX.whenPressed(new ClimbToggleCmd());
 
         // SmartDashboard fields
         SmartDashboard.putNumber("Drive Straight Speed", 0);
         SmartDashboard.putNumber("Drive Straight Timeout", 0);
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Baseline Left Auto", new AutoBaselineLeftCommand());
-        SmartDashboard.putData("Baseline Right Auto", new AutoBaselineRightCommand());
-        SmartDashboard.putData("Switch Auto", new AutoSwitchCommand());
+        SmartDashboard.putData("Baseline Left Auto", new AutoBaselineLeftCmd());
+        SmartDashboard.putData("Baseline Right Auto", new AutoBaselineRightCmd());
+        SmartDashboard.putData("Switch Auto", new AutoSwitchCmd());
     }
     
     private void initMainJoystick() {

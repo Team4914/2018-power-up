@@ -7,28 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SquareCube extends Command {
+public class WinchTightenCmd extends Command {
 
-	char orientation = 'l';
-	
-    public SquareCube(char orientation) {
+    public WinchTightenCmd() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.orientation = orientation;
-    	requires(Robot.m_intake);
     }
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (orientation == 'l') {
-    		// rotate cube counterclockwise
-    		Robot.m_intake.set(-0.8, 0.8);
-    	} else {
-    		Robot.m_intake.set(0.8, -0.8);
-    	}
+    	Robot.m_climber.set(1); 
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +30,7 @@ public class SquareCube extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_intake.stop();
+    	Robot.m_climber.set(0);
     }
 
     // Called when another command which requires one or more of the same
