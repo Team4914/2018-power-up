@@ -15,8 +15,11 @@ import org.usfirst.frc.team4914.robot.Robot;
 import org.usfirst.frc.team4914.robot.RobotMap;
 import org.usfirst.frc.team4914.robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Spark;
 
 
 /**
@@ -24,10 +27,15 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class Intake extends Subsystem {
 
-	private final Talon intakeLeft = RobotMap.intakeLeft;
-	private final Talon intakeRight = RobotMap.intakeRight;
+	private final Spark leftMotor = RobotMap.intakeLeft;
+	private final Spark rightMotor = RobotMap.intakeRight;
 	
-
+	private final DoubleSolenoid doubleSolenoid = RobotMap.intakeDoubleSolenoid;
+	
+	public DoubleSolenoid.Value getDoubleSolenoid() {
+		return doubleSolenoid.get();
+	}
+	
     @Override
     public void initDefaultCommand() {
 
@@ -44,7 +52,7 @@ public class Intake extends Subsystem {
      */
     public void setLeft(double speed) {
     	speed = Robot.safety(speed, 1);
-    	intakeLeft.set(speed);
+    	leftMotor.set(speed);
     }
     
     /**
@@ -53,7 +61,7 @@ public class Intake extends Subsystem {
      */
     public void setRight(double speed) {
     	speed = Robot.safety(speed, 1);
-    	intakeRight.set(speed);
+    	rightMotor.set(speed);
     }
     
     /**
@@ -75,6 +83,31 @@ public class Intake extends Subsystem {
     	setRight(rightSpeed);
     }
     
+    /** 
+	 * @param isExtended
+	 */
+	public void setExtension(boolean isExtended){
+		if(isExtended){
+			doubleSolenoid.set(Value.kForward);
+			System.out.println("Set to kforward");
+		}
+		else{
+			doubleSolenoid.set(Value.kReverse);
+			System.out.println("Set to kreverse");
+		}
+	}
+	
+	/**
+	 * Toggles the piston
+	 */
+	public void toggleExtension() {
+		if (doubleSolenoid.get() == Value.kForward) {
+			doubleSolenoid.set(Value.kReverse);
+		} else {
+			doubleSolenoid.set(Value.kForward);
+		}
+	}
+	
     /**
      * Stops all intake motors.
      */

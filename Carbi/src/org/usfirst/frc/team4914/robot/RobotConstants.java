@@ -17,22 +17,22 @@ public class RobotConstants {
 	
 /* Switch Autonomous */
 	
-	// duration of drive path
-	public static final double k_SwitchAutoFPPTime = 2;
+	// duration of entire drive path
+	public static final double k_SwitchAutoFPPTime = 4;
 	
 	// autonomous period drive waypoints
 	public static final double[][] k_SwitchAutoLeftFPPWaypoints = new double[][]{
 		{0, 0},
 		{30, 0},
-		{30, -30},
-		{58, -30}
+		{30, -20},
+		{58, -60}
 	};
 	
 	public static final double[][] k_SwitchAutoRightFPPWaypoints = new double[][]{
 		{0, 0},
 		{30, 0},
-		{30, 30},
-		{58, 30}
+		{30, 20},
+		{58, 60}
 	};
 	
 	// deprecated
@@ -47,6 +47,11 @@ public class RobotConstants {
 		{60, 33},
 		{80, 33},
 		{80, 15}
+	};
+	
+	public static final double[][] k_BaselineAutoStraightWaypoints = new double[][] {
+		{0, 0},
+		{80, 0}
 	};
 	
 /* Baseline autonomous */
@@ -66,6 +71,6 @@ public class RobotConstants {
 	public static final double k_coDriveMultiplier = 0.6;
 	
 	// outtake speed constants
-	public static final double k_outtakeSpeed = 1;
+	public static final double k_outtakeSpeed = -1;
 	
 }

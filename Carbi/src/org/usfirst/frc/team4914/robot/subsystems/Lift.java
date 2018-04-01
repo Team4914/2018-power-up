@@ -39,10 +39,22 @@ public class Lift extends Subsystem {
 		if(isExtended){
 			doubleSolenoid.set(Value.kForward);
 		}
-		else{
+		else {
 			doubleSolenoid.set(Value.kReverse);
 		}
 	}
+	
+	/**
+	 * Toggles the piston
+	 */
+	public void toggleExtension() {
+		if (doubleSolenoid.get() == Value.kForward) {
+			doubleSolenoid.set(Value.kReverse);
+		} else {
+			doubleSolenoid.set(Value.kForward);
+		}
+	}
+	
 	
 	public void startCompressor(){
 		compressor.start();

@@ -70,10 +70,15 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		
 		// construct autonomous chooser
-		m_chooser.addDefault("Switch Auto", new AutoSwitchCommand());
-		m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCommand());
-		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCommand());
+		m_chooser.addDefault("Switch Auto", new AutoSwitchCmd());
+		m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCmd());
+		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCmd());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		// set all pneumatics to resting position
+		m_climber.setExtension(false);
+		m_intake.setExtension(false);
+		m_lift.setExtension(false);
 		
 		//camera
 		// server = CameraServer.getInstance();
@@ -160,19 +165,20 @@ public class Robot extends TimedRobot {
 		// from the switch closest to the home driverstation, string will look like "LRL"
 		String GSM = DriverStation.getInstance().getGameSpecificMessage();
 		
+		System.out.print(GSM);
+		
 		// parse string
 		RobotConstants.ortnSwitch = GSM.charAt(0);
 		RobotConstants.ortnScale = GSM.charAt(1);
 		RobotConstants.ortnOppSwitch = GSM.charAt(2);
 		
 		// get selected command		
-		// m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = m_chooser.getSelected();
 		
 		// switch command
-		m_autonomousCommand = new AutoSwitchCommand();
-		
+		// m_autonomousCommand = new AutoSwitchCommand();
 		// drive straight
-		// m_autonomousCommand = new AutoSmoothPath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
+		// m_autonomousCommand = new DrivePath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -197,6 +203,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		System.out.println("mivhael has good ideas");
 		m_lift.startCompressor();
 		
 		// set double solenoid in reverse
@@ -251,11 +258,11 @@ public class Robot extends TimedRobot {
 		driveSpeedRight += Robot.m_oi.getMainYRight();
 		
 		// main driver trigger control (drive forward)
-		driveSpeedLeft += Robot.m_oi.getMainTRight();
-		driveSpeedRight += Robot.m_oi.getMainTRight();
+		driveSpeedLeft -= Robot.m_oi.getMainTRight();
+		driveSpeedRight -= Robot.m_oi.getMainTRight();
 		// main driver trigger control (drive backward)
-		driveSpeedLeft -= Robot.m_oi.getMainTLeft();
-		driveSpeedRight -= Robot.m_oi.getMainTLeft();
+		driveSpeedLeft += Robot.m_oi.getMainTLeft();
+		driveSpeedRight += Robot.m_oi.getMainTLeft();
 		
 		// co driver joystick control
 		driveSpeedLeft += RobotConstants.k_coDriveMultiplier*Robot.m_oi.getCoYLeft();
@@ -263,37 +270,35 @@ public class Robot extends TimedRobot {
 		
 		Robot.m_drivetrain.tankDrive(driveSpeedLeft, driveSpeedRight);
 	}
-
+	
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
 		
-		/*
-		
 		switch(testPWM) {
-		case 1: 
+		case 5: 
 			System.out.println(testPWM + ":" + "Right intake.");
 			m_intake.setRight(0.5);
 			break;
-		case 2: 
+		case 6: 
 			System.out.println(testPWM + ":" + "Left intake.");
 			m_intake.setLeft(0.5);
 			break;
-		case 3: 
+		case 9: 
 			System.out.println(testPWM + ":" + "Right single motor.");
 			m_drivetrain.setRightSingle(0.2);
 			break;
-		case 5: 
+		case 7: 
 			System.out.println(testPWM + ":" + "Right double motor.");
 			m_drivetrain.setRightDouble(0.2);
 			break;
-		case 8: 
+		case 1: 
 			System.out.println(testPWM + ":" + "Left double motor.");
 			m_drivetrain.setLeftDouble(0.2);
 			break;
-		case 9: 
+		case 8: 
 			System.out.println(testPWM + ":" + "Left single motor.");
 			m_drivetrain.setLeftSingle(0.2);
 			break;
@@ -308,15 +313,16 @@ public class Robot extends TimedRobot {
 			//Doesn't need a delay, as long as button is held down motor will continue
 		}
 		
-		testPWM++;
+		//Either PWM or PCM ports
+		if(testPWM < 9)	testPWM++;
 		stopAll();
-		
-		*/
 		
 		m_drivetrain.setRightDouble(0.2);
 		
 		//check if test is done?
 	}
+	
+	
 	
 	/**
 	 * Stops all drivetrain and intake motors

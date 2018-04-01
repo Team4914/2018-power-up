@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LoosenWinchCommand extends Command {
+public class WinchLoosenCmd extends Command {
 
-    public LoosenWinchCommand() {
+    public WinchLoosenCmd() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI.Port;
-import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -35,31 +35,36 @@ public class RobotMap {
     public static VictorSP rightSingle;
     
     // Intake actuators
-    public static Talon intakeLeft;
-    public static Talon intakeRight;
+    public static Spark intakeLeft;
+    public static Spark intakeRight;
     
     // Pneumatic actuators
     public static Compressor liftCompressor;
     public static DoubleSolenoid liftDoubleSolenoid;
     
+    public static DoubleSolenoid intakeDoubleSolenoid;
+    
+    public static DoubleSolenoid climbDoubleSolenoid;
+    
     // Lift actuators
-    public static Servo servo;
     public static Talon winch;
+
     
 	public static void init() {
 		
 		// Drivetrain
 		
-		leftDouble = new VictorSP(8);
+		leftDouble = new VictorSP(7);
 		leftDouble.setInverted(false);
 		
 		leftSingle = new VictorSP(9);
 		leftSingle.setInverted(false);
 		
-		rightDouble = new VictorSP(5);
+		
+		rightDouble = new VictorSP(1);
 		rightDouble.setInverted(true);
 		
-		rightSingle = new VictorSP(3);
+		rightSingle = new VictorSP(8);
 		rightSingle.setInverted(true);
 		
 		gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -69,20 +74,23 @@ public class RobotMap {
 		liftCompressor = new Compressor(0);
 		
 		//Start compressor as off
-		liftDoubleSolenoid = new DoubleSolenoid(1, 2);
+		liftDoubleSolenoid = new DoubleSolenoid(2, 3);
+		
+		intakeDoubleSolenoid = new DoubleSolenoid(4, 5);
+		
+		climbDoubleSolenoid = new DoubleSolenoid(6, 7);
 		
 		// Intake
 		
-		intakeLeft = new Talon(2);
+		intakeLeft = new Spark(5);
 		intakeLeft.setInverted(true);
 		
-		intakeRight = new Talon(1);
+		intakeRight = new Spark(6);
 		intakeRight.setInverted(false);
 		
 		// Climber
-		
-		servo = new Servo(7);
-		winch = new Talon(6);
+		winch = new Talon(4);
 		winch.setInverted(true);
+		
     }
 }
