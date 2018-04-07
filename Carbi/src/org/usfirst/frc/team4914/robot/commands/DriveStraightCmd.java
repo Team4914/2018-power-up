@@ -41,7 +41,7 @@ public class DriveStraightCmd extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-    	Robot.m_drivetrain.resetGyro();
+    	Robot.m_kinematics.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,7 +49,7 @@ public class DriveStraightCmd extends Command {
     protected void execute() {
     	leftSpeed = baseSpeed;
     	rightSpeed = baseSpeed;
-    	angleOffset = Robot.m_drivetrain.getGyroAngle(); 
+    	angleOffset = Robot.m_kinematics.getGyroAngle(); 
     	
     	//Subtract (angle * KP) speed from the side that it's turning away from
     	if(angleOffset < 0){

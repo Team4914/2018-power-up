@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.VictorSP;
  */
 public class Drivetrain extends Subsystem {
 
-	private final ADXRS450_Gyro gyro = RobotMap.gyro;
     private final VictorSP leftDouble = RobotMap.leftDouble;
     private final VictorSP leftSingle = RobotMap.leftSingle;
     private final VictorSP rightDouble = RobotMap.rightDouble;
@@ -103,22 +102,6 @@ public class Drivetrain extends Subsystem {
     public void setLeftSingle(double speed) {
     	speed = Robot.safety(speed, 1);
     	leftSingle.set(speed);
-    }
-    
-    /**
-     * Returns heading of gyrometer in degrees. Value may be positive 
-     * 	or negative depending on whether it has crossed over the 0 reading.
-     * @return heading of gyrometer in degrees
-     */
-    public double getGyroAngle(){
-    	return gyro.getAngle();
-    }
-    
-    /**
-     * Resets gyrometer to a reading of 0
-     */
-    public void resetGyro(){
-    	gyro.reset();
     }
     
     /**

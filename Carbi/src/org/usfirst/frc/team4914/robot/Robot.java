@@ -41,11 +41,14 @@ public class Robot extends TimedRobot {
 	public static Climber m_climber;
 	// public static Climber m_climber;
 	
+	public static Kinematics m_kinematics;
+	
     static CameraServer server;
     static Thread m_visionThread;
 	
 	public static OI m_oi;
-
+	
+	
 	private static int testPWM = 1;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -63,6 +66,8 @@ public class Robot extends TimedRobot {
 		m_intake = new Intake();
 		m_lift = new Lift();
 		m_climber = new Climber();
+		
+		m_kinematics = new Kinematics();
 		
 		// RobotMap.liftCompressor.setClosedLoopControl(true);
 		// m_lift.startCompressor();
