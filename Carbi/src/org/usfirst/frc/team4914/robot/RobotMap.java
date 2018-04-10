@@ -47,6 +47,9 @@ public class RobotMap {
     public static DoubleSolenoid climbDoubleSolenoid;
     
     // Lift actuators
+    public static Talon liftTalon;
+    
+    // Climb actuators
     public static Talon winch;
 
     
@@ -87,6 +90,9 @@ public class RobotMap {
 		
 		intakeRight = new Spark(6);
 		intakeRight.setInverted(false);
+		
+		// Lift
+		liftTalon = new Talon(3);
 		
 		// Climber
 		winch = new Talon(4);

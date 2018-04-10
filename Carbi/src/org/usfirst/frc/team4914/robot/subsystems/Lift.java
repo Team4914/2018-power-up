@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Talon;
 
+import org.usfirst.frc.team4914.robot.Robot;
 import org.usfirst.frc.team4914.robot.RobotMap;
 import org.usfirst.frc.team4914.robot.commands.*;
 
@@ -22,6 +24,7 @@ public class Lift extends Subsystem {
 	
 	private final Compressor compressor = RobotMap.liftCompressor;
 	private final DoubleSolenoid doubleSolenoid = RobotMap.liftDoubleSolenoid;
+	private final Talon liftTalon = RobotMap.liftTalon;
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
@@ -43,7 +46,22 @@ public class Lift extends Subsystem {
 			doubleSolenoid.set(Value.kReverse);
 		}
 	}
+	  /**
+     * 
+     * @param speed from -1 to 1
+     */
+    public void setSpeed(double speed) {
+    	speed = Robot.safety(speed, 1);
+    	liftTalon.set(speed);
+    }
 	
+    /**
+     * Stops the motor.
+     */
+    public void stopMotor() {
+    	setSpeed(0);
+    }
+    
 	/**
 	 * Toggles the piston
 	 */
@@ -67,5 +85,6 @@ public class Lift extends Subsystem {
 	public void stop(){
 		// compressor.stop();
 		doubleSolenoid.set(Value.kOff);
+		stopMotor();
 	}
 }
