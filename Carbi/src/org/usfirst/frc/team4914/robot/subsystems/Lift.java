@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team4914.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -24,7 +27,7 @@ public class Lift extends Subsystem {
 	
 	private final Compressor compressor = RobotMap.liftCompressor;
 	private final DoubleSolenoid doubleSolenoid = RobotMap.liftDoubleSolenoid;
-	private final Talon liftTalon = RobotMap.liftTalon;
+	private final TalonSRX liftTalon = RobotMap.liftTalon;
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
@@ -52,7 +55,7 @@ public class Lift extends Subsystem {
      */
     public void setSpeed(double speed) {
     	speed = Robot.safety(speed, 1);
-    	liftTalon.set(speed);
+    	liftTalon.set(ControlMode.PercentOutput, speed);
     }
 	
     /**
