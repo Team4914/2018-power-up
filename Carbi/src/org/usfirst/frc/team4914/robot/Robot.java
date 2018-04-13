@@ -64,14 +64,16 @@ public class Robot extends TimedRobot {
 		m_lift = new Lift();
 		m_climber = new Climber();
 		
+		m_lift.initTalon();
+		
 		// RobotMap.liftCompressor.setClosedLoopControl(true);
 		// m_lift.startCompressor();
 		
 		m_oi = new OI();
 		
 		// construct autonomous chooser
-		m_chooser.addDefault("Switch Auto", new AutoSwitchCmd());
-		m_chooser.addObject("Left Baseline Auto", new AutoBaselineLeftCmd());
+		m_chooser.addObject("Switch Auto", new AutoSwitchCmd());
+		m_chooser.addDefault("Left Baseline Auto", new AutoBaselineLeftCmd());
 		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCmd());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
@@ -88,7 +90,7 @@ public class Robot extends TimedRobot {
 			// Get the UsbCamera from CameraServer
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
-			camera.setFPS(30);
+			camera.setFPS(24);
 			camera.setResolution(160, 120);
 
 			// Get a CvSink. This will capture Mats from the camera
@@ -140,6 +142,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		//System.out.println(Robot.m_lift.getQuad());
 	}
 
 	/**
@@ -203,12 +206,14 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		System.out.println("mivhael has good ideas");
 		m_lift.startCompressor();
 		
 		// set double solenoid in reverse
 		m_lift.setExtension(false);
 				
+		// flip out servo to break plane
+		m_intake.servoOut();
+		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -227,6 +232,7 @@ public class Robot extends TimedRobot {
 
 		operateHybridDrive();
 		operateIntake();
+		operateLift();
 		
 	}
 	
@@ -272,6 +278,24 @@ public class Robot extends TimedRobot {
 	}
 	
 	/**
+	 * Ensures lift is moving up/down, based on isLifting in RobotConstants
+	 */
+	private void operateLift() {
+		double liftSpeed = 0;
+		double thisQuad = m_lift.getQuad();
+		double setpoint = RobotConstants.k_liftBottomSetpoint;
+		if (RobotConstants.isLifting == 't' && m_lift.getQuad() < RobotConstants.k_liftTopSetpoint) {
+			setpoint = RobotConstants.k_liftTopSetpoint;
+		} else if (RobotConstants.isLifting == 'b' && m_lift.getQuad() > RobotConstants.k_liftBottomSetpoint) {
+			setpoint = RobotConstants.k_liftBottomSetpoint;
+		} else if (RobotConstants.isLifting == 'm' && Math.abs(thisQuad - RobotConstants.k_liftMiddleSetpoint) > RobotConstants.k_epsilon) {
+			setpoint = RobotConstants.k_liftMiddleSetpoint;
+		}
+		liftSpeed = Robot.safety(RobotConstants.k_P*(setpoint - thisQuad), 1);
+		m_lift.setSpeed(liftSpeed);
+	}
+	
+	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
@@ -279,31 +303,31 @@ public class Robot extends TimedRobot {
 		
 		switch(testPWM) {
 		case 5: 
-			System.out.println(testPWM + ":" + "Right intake.");
+			//System.out.println(testPWM + ":" + "Right intake.");
 			m_intake.setRight(0.5);
 			break;
 		case 6: 
-			System.out.println(testPWM + ":" + "Left intake.");
+			//System.out.println(testPWM + ":" + "Left intake.");
 			m_intake.setLeft(0.5);
 			break;
 		case 9: 
-			System.out.println(testPWM + ":" + "Right single motor.");
+			//System.out.println(testPWM + ":" + "Right single motor.");
 			m_drivetrain.setRightSingle(0.2);
 			break;
 		case 7: 
-			System.out.println(testPWM + ":" + "Right double motor.");
+			//System.out.println(testPWM + ":" + "Right double motor.");
 			m_drivetrain.setRightDouble(0.2);
 			break;
 		case 1: 
-			System.out.println(testPWM + ":" + "Left double motor.");
+			//System.out.println(testPWM + ":" + "Left double motor.");
 			m_drivetrain.setLeftDouble(0.2);
 			break;
 		case 8: 
-			System.out.println(testPWM + ":" + "Left single motor.");
+			//System.out.println(testPWM + ":" + "Left single motor.");
 			m_drivetrain.setLeftSingle(0.2);
 			break;
 		default:
-			System.out.println(testPWM + ": Not linked to motor.");
+			//System.out.println(testPWM + ": Not linked to motor.");
 		}
 		
 		Timer.delay(2);

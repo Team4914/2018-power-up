@@ -73,4 +73,17 @@ public class RobotConstants {
 	// outtake speed constants
 	public static final double k_outtakeSpeed = -1;
 	
+/* Lift CAN PID control */
+	
+	public static final int k_liftTopSetpoint = 642000;
+	public static final int k_liftMiddleSetpoint = 513000;
+	public static final int k_liftBottomSetpoint = 0;
+	
+	public static final int k_quadPerInches = 15287;
+	
+	public static char isLifting = 'b';
+	
+	public static final double k_P = 0.000007;
+	public static final double k_epsilon = 0.5*k_quadPerInches;
+	
 }

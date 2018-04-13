@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 
 
@@ -31,6 +32,16 @@ public class Intake extends Subsystem {
 	private final Spark rightMotor = RobotMap.intakeRight;
 	
 	private final DoubleSolenoid doubleSolenoid = RobotMap.intakeDoubleSolenoid;
+	
+	//temporary
+	private final Servo servo = RobotMap.servo;
+	
+	public void servoOut() {
+		servo.set(1.0);
+	}
+	
+	
+	//temporary
 	
 	public DoubleSolenoid.Value getDoubleSolenoid() {
 		return doubleSolenoid.get();

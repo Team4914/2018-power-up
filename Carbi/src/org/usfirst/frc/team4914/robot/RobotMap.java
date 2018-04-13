@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -53,6 +54,9 @@ public class RobotMap {
     
     // Climb actuators
     public static Talon winch;
+    
+    // Servo
+    public static Servo servo;
 
     
 	public static void init() {
@@ -101,5 +105,7 @@ public class RobotMap {
 		winch = new Talon(4);
 		winch.setInverted(true);
 		
+		// Servos
+		servo = new Servo(0);
     }
 }

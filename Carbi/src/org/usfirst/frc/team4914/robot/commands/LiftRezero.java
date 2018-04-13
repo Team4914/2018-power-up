@@ -1,41 +1,40 @@
 package org.usfirst.frc.team4914.robot.commands;
 
 import org.usfirst.frc.team4914.robot.Robot;
-import org.usfirst.frc.team4914.robot.RobotConstants;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftToggleCmd extends Command {
+public class LiftRezero extends Command {
 
-    public LiftToggleCmd() {
+    public LiftRezero() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	// requires(Robot.m_lift);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setTimeout(2);
+    	Robot.m_lift.setSoftLimit(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	// Robot.m_lift.toggleExtension();
-    	// RobotConstants.isLifting = !RobotConstants.isLifting;
+    	Robot.m_lift.setSpeed(-0.2);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_lift.stopMotor();
+    	Robot.m_lift.resetQuad();
+    	Robot.m_lift.setSoftLimit(true);
     }
 
     // Called when another command which requires one or more of the same
