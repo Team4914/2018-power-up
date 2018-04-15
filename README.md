@@ -1,9 +1,9 @@
 # 2018-power-up
-Competition code in project `Carbi`
+Competition code is found in project `Carbi`.
 
-For 90% of what you need to know for programming, go to [screensteps live](http://wpilib.screenstepslive.com/s/currentCS).
+If in doubt, go to [screensteps live](http://wpilib.screenstepslive.com/s/currentCS).
 
-**Read the following if you are new:**
+**Useful screensteps references:**
 [Control system hardware review](http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/599672-frc-control-system-hardware-overview)
 [Setting up the development environment](http://wpilib.screenstepslive.com/s/currentCS/m/java/c/88899)
 
