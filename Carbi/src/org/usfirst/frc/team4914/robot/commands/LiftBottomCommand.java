@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LiftToggleCmd extends Command {
+public class LiftBottomCommand extends Command {
 
-    public LiftToggleCmd() {
+    public LiftBottomCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	// requires(Robot.m_lift);
@@ -26,7 +26,7 @@ public class LiftToggleCmd extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// Robot.m_lift.toggleExtension();
-    	// RobotConstants.isLifting = !RobotConstants.isLifting;
+    	RobotConstants.isLifting = 'b';
     }
 
     // Make this return true when this Command no longer needs to run execute()

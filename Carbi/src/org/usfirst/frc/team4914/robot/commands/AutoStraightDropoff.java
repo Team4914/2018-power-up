@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoBaselineRightCmd extends CommandGroup {
+public class AutoStraightDropoff extends CommandGroup {
 
-    public AutoBaselineRightCmd() {
+    public AutoStraightDropoff() {
 
     	requires(Robot.m_drivetrain);
     	requires(Robot.m_intake);
@@ -18,8 +18,10 @@ public class AutoBaselineRightCmd extends CommandGroup {
     	// drive past baseline
     	addSequential(new AutoDrivePathCmd("baselineRight"));
     	
+    	addSequential(new OuttakeTimedCmd(3));
+    	
     	// dump cube if appropriate
-    	addSequential(new AutoConditionalDropoff("baselineLeft"));
+    	// addSequential(new AutoConditionalDropoff("baselineLeft"));
     	
     	/*
     	if (RobotConstants.ortnSwitch == 'R') { 

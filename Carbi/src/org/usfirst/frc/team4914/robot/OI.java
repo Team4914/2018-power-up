@@ -119,21 +119,16 @@ public class OI {
          * This is where you assign functions to the co joystick controller
          */
         
-        coB.whenPressed(new LiftToggleCmd());
+        coY.whenPressed(new LiftTopCommand());
+        coB.whenPressed(new LiftMiddleCommand());
+        coA.whenPressed(new LiftBottomCommand());
 
         coBumperLeft.whileHeld(new OuttakeCmd());
         coBumperRight.whenPressed(new IntakeToggleCmd());
         
+        coStart.whenPressed(new LiftRezero());
+        
         coX.whenPressed(new ClimbToggleCmd());
-
-        // SmartDashboard fields
-        SmartDashboard.putNumber("Drive Straight Speed", 0);
-        SmartDashboard.putNumber("Drive Straight Timeout", 0);
-
-        // SmartDashboard Buttons
-        SmartDashboard.putData("Baseline Left Auto", new AutoBaselineLeftCmd());
-        SmartDashboard.putData("Baseline Right Auto", new AutoBaselineRightCmd());
-        SmartDashboard.putData("Switch Auto", new AutoSwitchCmd());
     }
     
     private void initMainJoystick() {

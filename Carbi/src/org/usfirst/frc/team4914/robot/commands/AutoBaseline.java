@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * The robot begins on the left side of the home switch
  */
-public class AutoBaselineLeftCmd extends CommandGroup {
+public class AutoBaseline extends CommandGroup {
 
-    public AutoBaselineLeftCmd() {
+    public AutoBaseline() {
 
     	requires(Robot.m_drivetrain);
     	requires(Robot.m_intake);

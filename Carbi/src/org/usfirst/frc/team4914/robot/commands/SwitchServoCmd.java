@@ -1,32 +1,28 @@
 package org.usfirst.frc.team4914.robot.commands;
 
 import org.usfirst.frc.team4914.robot.Robot;
-import org.usfirst.frc.team4914.robot.RobotConstants;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftToggleCmd extends Command {
+public class SwitchServoCmd extends Command {
 
-    public LiftToggleCmd() {
+	//TODO: this command might be unused
+	
+    public SwitchServoCmd() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	// requires(Robot.m_lift);
+    	requires(Robot.m_intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.m_intake.servoOut();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	// Robot.m_lift.toggleExtension();
-    	// RobotConstants.isLifting = !RobotConstants.isLifting;
     }
 
     // Make this return true when this Command no longer needs to run execute()

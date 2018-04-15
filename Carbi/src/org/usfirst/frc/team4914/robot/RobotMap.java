@@ -7,10 +7,13 @@
 
 package org.usfirst.frc.team4914.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -47,7 +50,13 @@ public class RobotMap {
     public static DoubleSolenoid climbDoubleSolenoid;
     
     // Lift actuators
+    public static TalonSRX liftTalon;
+    
+    // Climb actuators
     public static Talon winch;
+    
+    // Servo
+    public static Servo servo;
 
     
 	public static void init() {
@@ -88,9 +97,15 @@ public class RobotMap {
 		intakeRight = new Spark(6);
 		intakeRight.setInverted(false);
 		
+		// Lift
+		liftTalon = new TalonSRX(3);
+		liftTalon.setInverted(false);
+		
 		// Climber
 		winch = new Talon(4);
 		winch.setInverted(true);
 		
+		// Servos
+		servo = new Servo(0);
     }
 }
