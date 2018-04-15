@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
 		m_climber = new Climber();
 		
 		m_lift.initTalon();
-		
+		m_intake.setExtension(false);
 		// RobotMap.liftCompressor.setClosedLoopControl(true);
 		// m_lift.startCompressor();
 		
@@ -73,8 +73,8 @@ public class Robot extends TimedRobot {
 		
 		// construct autonomous chooser
 		m_chooser.addObject("Switch Auto", new AutoSwitchCmd());
-		m_chooser.addDefault("Left Baseline Auto", new AutoBaselineLeftCmd());
-		m_chooser.addObject("Right Baseline Auto", new AutoBaselineRightCmd());
+		m_chooser.addDefault("Left Baseline Auto", new AutoBaseline());
+		m_chooser.addObject("Right Baseline Auto", new AutoStraightDropoff());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
 		// set all pneumatics to resting position
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 			// Set the resolution
 			camera.setFPS(24);
-			camera.setResolution(160, 120);
+			camera.setResolution(640, 480);
 
 			// Get a CvSink. This will capture Mats from the camera
 			CvSink cvSink = CameraServer.getInstance().getVideo();
@@ -135,6 +135,7 @@ public class Robot extends TimedRobot {
 		// safety code in here
 		Robot.m_drivetrain.stop();
 		Robot.m_lift.stop();
+		Robot.m_intake.setExtension(false);
 		Robot.m_intake.stop();
 		Robot.m_climber.set(0);
 	}
@@ -175,8 +176,15 @@ public class Robot extends TimedRobot {
 		RobotConstants.ortnScale = GSM.charAt(1);
 		RobotConstants.ortnOppSwitch = GSM.charAt(2);
 		
-		// get selected command		
-		m_autonomousCommand = m_chooser.getSelected();
+		// get selected command
+		
+		// m_autonomousCommand = m_chooser.getSelected();
+		if (RobotConstants.ortnSwitch == 'L') {
+			// m_autonomousCommand = new AutoStraightDropoff();
+			m_autonomousCommand = new AutoBaseline();
+		} else {
+			m_autonomousCommand = new AutoBaseline();
+		}
 		
 		// switch command
 		// m_autonomousCommand = new AutoSwitchCommand();
