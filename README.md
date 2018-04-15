@@ -1,6 +1,5 @@
 # 2018-power-up
-Ready for whatever FIRST can throw at us this year.  
-Hopefully.
+Competition code in project `Carbi`
 
 For 90% of what you need to know for programming, go to [screensteps live](http://wpilib.screenstepslive.com/s/currentCS).
 
