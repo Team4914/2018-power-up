@@ -7,6 +7,11 @@ If in doubt, go to [screensteps live](http://wpilib.screenstepslive.com/s/curren
 [Control system hardware review](http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/599672-frc-control-system-hardware-overview)
 [Setting up the development environment](http://wpilib.screenstepslive.com/s/currentCS/m/java/c/88899)
 
+**Talon SRX References:**
+[Talon SRX Technical Resources](http://www.ctr-electronics.com/talon-srx.html#product_tabs_technical_resources)  
+[Software Reference Manual](https://github.com/CrossTheRoadElec/Phoenix-Documentation/raw/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf)\(Found under `FRC FIRST POWERUP Software API` section\)  
+Also in the same section are `.CRF` files for updating firmware, Java API documentation, and other useful documents.
+
 ## Branches
 The main branch `master` is for **competition code only**. Any changes should be made in their own branch based off `master` so if something goes horribly wrong, the branch can be reverted and the code in `master` is preserved. If there is finalized code in a development branch, open a pull request so it can be merged into `master`. Only `cyamonide` (Simon) or `suchaHassle` (Jason) will be accepting these.
 
