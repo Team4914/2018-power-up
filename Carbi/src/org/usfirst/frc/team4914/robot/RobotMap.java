@@ -50,7 +50,9 @@ public class RobotMap {
     public static DoubleSolenoid climbDoubleSolenoid;
     
     // Lift actuators
-    public static TalonSRX liftTalon;
+    public static VictorSP liftTalon;
+    
+    //TODO: Temporarily changing talon to sr, and using manual up-down for demo
     
     // Climb actuators
     public static Talon winch;
@@ -98,7 +100,7 @@ public class RobotMap {
 		intakeRight.setInverted(false);
 		
 		// Lift
-		liftTalon = new TalonSRX(3);
+		liftTalon = new VictorSP(2);
 		liftTalon.setInverted(false);
 		
 		// Climber

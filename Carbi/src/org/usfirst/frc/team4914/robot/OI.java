@@ -106,7 +106,6 @@ public class OI {
     	
     	initMainJoystick();
     	initCoJoystick();
-    	
     	/*
     	 * This is where you assign functions to the main joystick controller
     	 */
@@ -114,7 +113,6 @@ public class OI {
         
     	mainY.whileHeld(new WinchTightenCmd());
         mainA.whileHeld(new WinchLoosenCmd());
-      
         /*
          * This is where you assign functions to the co joystick controller
          */
@@ -123,10 +121,8 @@ public class OI {
         coB.whenPressed(new LiftMiddleCommand());
         coA.whenPressed(new LiftBottomCommand());
 
-        coBumperLeft.whileHeld(new OuttakeCmd());
+       // coBumperLeft.whileHeld(new OuttakeCmd());
         coBumperRight.whenPressed(new IntakeToggleCmd());
-        
-        coStart.whenPressed(new LiftRezero());
         
         coX.whenPressed(new ClimbToggleCmd());
     }

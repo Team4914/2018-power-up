@@ -9,6 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class LiftRezero extends Command {
 
+	@Override
+	//TEMPO
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+/*
     public LiftRezero() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -22,7 +29,7 @@ public class LiftRezero extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_lift.setSpeed(-0.2);
+    	Robot.m_lift.setSpeed(Robot.safety(-0.5, 1));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,4 +48,5 @@ public class LiftRezero extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    */
 }

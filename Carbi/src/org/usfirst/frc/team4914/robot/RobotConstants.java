@@ -81,7 +81,7 @@ public class RobotConstants {
 	
 	public static final int k_quadPerInches = 15287;
 	
-	public static char isLifting = 'b';
+	public static char isLifting = 'm';
 	
 	public static final double k_P = 0.000007;
 	public static final double k_epsilon = 0.5*k_quadPerInches;

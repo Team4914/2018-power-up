@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
 		m_lift = new Lift();
 		m_climber = new Climber();
 		
-		m_lift.initTalon();
+		//m_lift.initTalon(); TODO
 		m_intake.setExtension(false);
 		// RobotMap.liftCompressor.setClosedLoopControl(true);
 		// m_lift.startCompressor();
@@ -135,7 +135,6 @@ public class Robot extends TimedRobot {
 		// safety code in here
 		Robot.m_drivetrain.stop();
 		Robot.m_lift.stop();
-		Robot.m_intake.setExtension(false);
 		Robot.m_intake.stop();
 		Robot.m_climber.set(0);
 	}
@@ -289,7 +288,10 @@ public class Robot extends TimedRobot {
 	 * Ensures lift is moving up/down, based on isLifting in RobotConstants
 	 */
 	private void operateLift() {
-		double liftSpeed = 0;
+		/*TODO: temporary
+		 * 
+		 * double liftSpeed = 0;
+		 *
 		double thisQuad = m_lift.getQuad();
 		double setpoint = RobotConstants.k_liftBottomSetpoint;
 		if (RobotConstants.isLifting == 't' && m_lift.getQuad() < RobotConstants.k_liftTopSetpoint) {
@@ -301,6 +303,15 @@ public class Robot extends TimedRobot {
 		}
 		liftSpeed = Robot.safety(RobotConstants.k_P*(setpoint - thisQuad), 1);
 		m_lift.setSpeed(liftSpeed);
+		*/
+		
+		if(RobotConstants.isLifting == 't'){
+			m_lift.setSpeed(1);
+		} else if(RobotConstants.isLifting == 'b'){
+			m_lift.setSpeed(-1);
+		} else if(RobotConstants.isLifting == 'm'){
+			m_lift.stopMotor();
+		}
 	}
 	
 	/**
