@@ -179,15 +179,20 @@ public class Robot extends TimedRobot {
 		// get selected command
 		
 		// m_autonomousCommand = m_chooser.getSelected();
+		/*
 		if (RobotConstants.ortnSwitch == 'L') {
 			// m_autonomousCommand = new AutoStraightDropoff();
 			m_autonomousCommand = new AutoBaseline();
 		} else {
 			m_autonomousCommand = new AutoBaseline();
 		}
+		*/
 		
+		
+		
+		// TEST THIS ASAP
 		// switch command
-		// m_autonomousCommand = new AutoSwitchCommand();
+		 m_autonomousCommand = new AutoSwitchCommand();
 		// drive straight
 		// m_autonomousCommand = new DrivePath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
 
