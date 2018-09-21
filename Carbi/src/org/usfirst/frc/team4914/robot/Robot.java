@@ -12,6 +12,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -192,7 +193,7 @@ public class Robot extends TimedRobot {
 		
 		// TEST THIS ASAP
 		// switch command
-		 m_autonomousCommand = new AutoSwitchCommand();
+		m_autonomousCommand = new AutoSwitchCmd();
 		// drive straight
 		// m_autonomousCommand = new DrivePath(RobotConstants.autoStraightWaypoints, RobotConstants.k_BaselineAutoFPGTime);
 
@@ -386,4 +387,38 @@ public class Robot extends TimedRobot {
 		
 		return input;
 	}
+	
+	/**
+     * Adjusts speeds for consistent speed across voltages
+     * 
+     * @param speed
+     * @param baseVoltage Voltage to be adjusted to
+     * @return Adjusted speed
+     */
+    public static double voltageAdjust(double speed, double baseVoltage){
+		double currentVoltage = RobotController.getBatteryVoltage();
+		double voltageRatio = baseVoltage / currentVoltage;
+		
+		//Debug
+    	System.out.println("V:" + currentVoltage);
+		
+    	return Robot.safety(speed * voltageRatio, 1);
+    }
+
+    /**
+     * Adjusts speeds for consistent speed across voltages
+     * 
+     * @param speed
+     * @param baseVoltage (12.5)
+     * @return Adjusted speed
+     */
+    public static double voltageAdjust(double speed){
+		double currentVoltage = RobotController.getBatteryVoltage();
+		double voltageRatio = 12.5 / currentVoltage;
+		
+		//Debug
+    	System.out.println("V:" + currentVoltage);
+		
+    	return Robot.safety(speed * voltageRatio, 1);
+    }
 }

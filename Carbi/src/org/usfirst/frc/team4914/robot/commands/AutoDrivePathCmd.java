@@ -4,8 +4,7 @@ import org.usfirst.frc.team4914.robot.FalconPathPlanner;
 import org.usfirst.frc.team4914.robot.Robot;
 import org.usfirst.frc.team4914.robot.RobotConstants;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -95,18 +94,10 @@ public class AutoDrivePathCmd extends Command {
     	// delay for the time step specified
     	Timer.delay(RobotConstants.k_FPPTimeStep);
     	
-    	try {
-    		double desiredVoltage = 12.0;
-    		double actualVoltage = DriverStation.getInstance().getVoltage();
-    		double ratio = desiredVoltage/actualVoltage;
-    		// access left and right speeds
-    		leftSpeed = (ratio)-path.smoothRightVelocity[i][1]/60.0;
-    		rightSpeed = (ratio)-path.smoothLeftVelocity[i][1]/60.0;
-    		// 
-    		Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
-    	} catch (IndexOutOfBoundsException e) {
-    		isFinished = true;
-    	}
+    	leftSpeed = -path.smoothRightVelocity[i][1]/60.0;
+    	rightSpeed = -path.smoothLeftVelocity[i][1]/60.0;
+    	// 
+    	Robot.m_drivetrain.tankDrive(leftSpeed, rightSpeed);
     	
     	i++;
     }

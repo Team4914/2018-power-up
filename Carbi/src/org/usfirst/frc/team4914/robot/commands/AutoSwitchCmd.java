@@ -21,7 +21,8 @@ public class AutoSwitchCmd extends CommandGroup {
     	addSequential(new AutoDrivePathCmd("switch"));
     	
     	// drive back slightly
- 		addSequential(new DriveStraightCmd(-0.3, 0.5));
+ 		addSequential(new DriveStraightCmd(Robot.voltageAdjust(-0.3), 0.5));
+ 		
 		// lift lift
 		addSequential(new LiftToggleCmd());	
 		addParallel(new OuttakeTimedCmd(1.5));
